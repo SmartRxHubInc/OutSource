@@ -1,0 +1,16 @@
+22-07-2016 1:00 pm
+  Reason: for add check box of qas_mode (on/off)
+
+ <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right"></label>
+                            <div class="checkbox text-left m-t m-b">
+                                <label class="i-checks">
+                                    <input type="checkbox" ng-model="user.qas_mode" ng-checked="user.qas_mode" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i></i> QAS Mode
+                                </label>
+                            </div>
+                        </div>
+========================================================================
+01-09-2016 Jaimin Patel
+change ng-model,ng-selected & ng-option
+ <select class="form-control" ng-model="user.time_zone_code" ng-selected="user.time_zone_code" ng-options="i.time_zone_code as i.city + '(' + i.time_zone + ')' for i in timeZone" required><option value="">Select Zone</option></select>

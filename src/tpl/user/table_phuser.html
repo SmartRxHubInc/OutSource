@@ -1,0 +1,44 @@
+<div ng-controller="PhUserCtrl">
+    <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+            <div class="col-sm-4 col-xs-12">
+                <h1 class="m-n font-thin h3 text-black">Pharmacy Users</h1>
+            </div>
+            <div class="row col-sm-8 text-right hidden-xs pull-right">
+
+                <div class="col-sm-6" style="float: right;" ng-show="app.loginRoleCode == 'PHADM'  || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT'">
+                    <select class="form-control" ng-model="store_code" ng-selected="store_code" ng-change="getStoreUserData()" ng-options="i.store_code as i.store_name for i in stores">
+                        <option value="">All Stores</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-md" >
+        <div  ng-if="app.loginRoleCode !='SCNBT' && app.loginRoleCode !='SCTT'" style="float: right; margin-top: 5px;margin-right: 10px;">
+            <a ng-click="addUser()" class="btn btn-success">Add</a>
+            <!--<a ui-sref="app.table.formphuser" class="btn btn-success">Add</a>-->
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Pharmacy Users
+            </div>
+            <div class="table-responsive">
+                <div class="input-group">
+                    <input type="text" name="searchText" ng-model="filterOptions.filterText" class="form-control" placeholder="Search by User Name" />
+                    <span class="input-group-addon glyphicon glyphicon-search" style="top: 0;"></span>
+                </div>
+                <div cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+                    <div ng-grid="gridOptions" style="min-height:420px"></div>
+                </div>
+                <div class="col-md-12 nodatafound" ng-show="myData.length == 0">
+                    <div class="col-md-12">
+                        <h4>No User found</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

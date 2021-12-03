@@ -1,0 +1,322 @@
+<div class="wrapper-md" ng-controller="FormStoreCtrl">
+    <!--    <tabset class="tab-container">
+            <tab>
+                <tab-heading>New Admission</tab-heading>-->
+    <div cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+        <form name="form" class="form-validation">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="h4">{{formname}}</span>
+                </div>
+                <div class="panel-body row">
+                    <div class="col-sm-6">
+                        <h4>Store Details</h4>
+                        <input type="hidden" class="form-control" ng-model="user.store_code">
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Name<span class="reqire-field-color">*</span></label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="user.store_name" placeholder="Store Name" required>
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Kroll Ref</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="user.ref_store_code" placeholder="Kroll Reference">
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Email<span class="reqire-field-color">*</span></label>
+                            <div class="col-sm-9">
+                                <input type="email" ng-trim="false" class="form-control" ng-model="user.store_email" placeholder="Store Email" required>
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Phone<span class="reqire-field-color">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-maxlength="15" ng-minlength="10" ng-pattern="phoneNumbr" ng-model="user.store_phone" placeholder="Store Phone" required>
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Store IP</label>
+                            <div class="col-sm-9">
+                                <!--<input type="text" class="form-control" ng-model="user.store_ip" ng-pattern="/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/" placeholder="xxx.xxx.xxx.xxx-xxx.xxx.xxx.xxx">-->
+                                <input ng-model="user.store_ip" ipaddress name="ipaddress" class="form-control" placeholder="xxx.xxx.xxx.xxx">
+                            </div>
+                        </div>
+
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Description</label>
+                            <div class="col-sm-9">
+                                <textarea rows="3" cols="50" class="form-control" ng-model="user.store_des" placeholder="Description" ></textarea>
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right"></label>
+                            <div class="checkbox text-left m-t m-b">
+                                <label class="i-checks">
+                                    <input type="checkbox" ng-model="user.qas_mode" ng-checked="user.qas_mode" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i></i> QoS Mode
+                                </label>
+                            </div>
+                        </div>
+
+                        <!--<div class="line line-dashed pull-in"></div>-->
+                        <div class="form-group" ng-show='user.qas_mode'>
+                            <label class="col-sm-3 control-label label-right"></label>
+                            <div class="checkbox text-left m-t m-b">
+                                <label class="i-checks">
+                                    <input type="checkbox" ng-model="user.qos_warn_notification" ng-checked="user.qos_warn_notification" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i></i> QoS Warning Notification
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>Location Details</h4>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Address</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="user.store_add1" placeholder="Address Line 1">
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right" ></label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="user.store_add2" placeholder="Address Line 2">
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Postal</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control"  ng-model="user.store_postal" placeholder="Postal code">
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Country</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="user.store_county" placeholder="Country">
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Province</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="user.store_province" placeholder="Province">
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right" >City</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="user.store_city" placeholder="City">
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label label-right">Zone<span class="reqire-field-color">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control" ng-model="user.time_zone_code" ng-selected="user.time_zone_code" ng-options="i.time_zone_code as i.city +  '(' +  i.time_zone +  ')' for i in timeZone" required><option value="">Select Zone</option></select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed pull-in"></div>
+                           <div class="form-group" >
+                            <label class="col-sm-3 control-label label-right"></label>
+                            <div class="checkbox text-left m-t m-b">
+                                <label class="i-checks">
+                                    <input type="checkbox" ng-model="user.is_backup_service" ng-checked="user.is_backup_service" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i></i>Backup Printer service On/Off
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <footer class="panel-footer text-right bg-light lter">
+                    <button type="submit" class="btn btn-success" ng-click="insertStore()" ng-disabled="form.$invalid">Submit</button>
+                    <a ui-sref="app.table.store" class="btn btn-success">Cancel</a>
+                </footer>
+            </div>
+        </form>
+    </div>
+    <!--        </tab>
+            <tab>
+                <tab-heading>
+                    Contacts Resident Info
+                </tab-heading>
+                <form name="form" class="form-validation">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="h4">Resident Contact Info</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-4">
+                                    <label>Type</label>
+                                    <input type="type" class="form-control" name="type" ng-model="type" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Name</label>
+                                    <input type="name" class="form-control" name="name" ng-model="name" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Address</label>
+                                    <input type="address" class="form-control" name="address" ng-model="address" required >   
+                                </div>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-4">
+                                    <label>City</label>
+                                    <input type="city" class="form-control" name="city" ng-model="city" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Province</label>
+                                    <input type="province" class="form-control" name="province" ng-model="province" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Country</label>
+                                    <input type="country" class="form-control" name="country" ng-model="country" required >   
+                                </div>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-4">
+                                    <label>Postal Code / Zip Code</label>
+                                    <input type="postal_code" class="form-control" name="postal_code" ng-model="postal_code" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Home</label>
+                                    <input type="home" class="form-control" name="home" ng-model="home" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Mobile</label>
+                                    <input type="mobile" class="form-control" name="mobile" ng-model="mobile" required >   
+                                </div>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-6">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" name="email" ng-model="email" required >   
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Skype</label>
+                                    <input type="skype" class="form-control" name="skype" ng-model="skype" required >   
+                                </div>
+    
+                            </div>
+                        </div>
+                        <footer class="panel-footer text-right bg-light lter">
+                            <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">Submit</button>
+                        </footer>
+                    </div>
+                </form>
+            </tab>
+            <tab>
+                <tab-heading>
+                    Nursing Home
+                </tab-heading>
+                <form name="form" class="form-validation">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="h4">Nursing Home</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-4">
+                                    <label>Nursing Home</label>
+                                    <input type="nursing_home" class="form-control" name="nursing_home" ng-model="nursing_home" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Ward/Unit</label>
+                                    <input type="ward" class="form-control" name="ward" ng-model="ward" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Default Cycle</label>
+                                    <input type="defaultcycle" class="form-control" name="address" ng-model="address" required >   
+                                </div>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-4">
+                                    <label>Cycle Start Date</label>
+                                    <input type="city" class="form-control" name="city" ng-model="city" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Admission Date</label>
+                                    <input type="admission_date" class="form-control" name="admission_date" ng-model="admission_date" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>MedReview Date</label>
+                                    <input type="med_review_date" class="form-control" name="med_review_date" ng-model="med_review_date" required >   
+                                </div>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-6">
+                                    <label>Room Number</label>
+                                    <input type="room_number" class="form-control" name="room_number" ng-model="room_number" required >   
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Bed</label>
+                                    <input type="bed" class="form-control" name="bed" ng-model="bed" required >   
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="panel-footer text-right bg-light lter">
+                            <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">Submit</button>
+                        </footer>
+                    </div>
+                </form>
+            </tab>
+            <tab>
+                <tab-heading>
+                    Notes & Alerts
+                </tab-heading>
+                <form name="form" class="form-validation">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="h4">Nursing Home</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-4">
+                                    <label>Description</label>
+                                    <input type="description" class="form-control" name="description" ng-model="description" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Notes/Comments Here</label>
+                                    <input type="notes" class="form-control" name="notes" ng-model="notes" required >   
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col-sm-12">Alert</label>
+                                    <div class="col-sm-4">
+                                        <label class="i-checks">
+                                            <input type="radio" name="alert" value="">
+                                            <i></i>
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="i-checks">
+                                            <input type="radio" name="alert" value="">
+                                            <i></i>
+                                            No
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+    
+            </tab>
+        </tabset>-->
+</div>

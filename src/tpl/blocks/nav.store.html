@@ -1,0 +1,266 @@
+<!-- list -->
+<ul class="nav">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.HEADER">Navigation</span>
+  </li>
+  <li ui-sref-active="active">
+    <!--<a ui-sref="app.dashboard-v1">-->
+    <a ui-sref="app.rxdashboard">
+      <i class="fa fa-th-large icon text-white"></i>
+      <span class="font-bold">Dashboard</span>
+    </a>
+  </li>
+  <li ng-show="app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'STRADM'">
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="fa fa-plus icon text-white"></i>
+      <span class="font-bold" translate="Pharmacy">Pharmacy</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li ui-sref-active="active">
+        <a ui-sref="app.table.printer">
+          <i class="fa fa-print text-white"></i>
+          <span class="font-bold">Printer</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.table.phuser">
+          <i class="fa fa-users text-white"></i>
+          <span class="font-bold">User</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="fa fa-wheelchair icon text-white"></i>
+      <span class="font-bold" translate="Home">Home</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <!--            <li ui-sref-active="active">
+                            <a ui-sref="app.rxdashboard">
+                                <i class="glyphicon glyphicon-stats icon text-white" ></i>
+                                <span class="font-bold">Dashboard</span>
+                            </a>
+                        </li>-->
+      <li ui-sref-active="active">
+        <a ui-sref="app.table.facility">
+          <i class="fa fa-wheelchair text-white"></i>
+          <span class="font-bold">Home</span>
+        </a>
+      </li>
+      <li ui-sref-active="active" ng-show="app.loginRoleCode == 'PHATEC'">
+        <a ui-sref="app.table.patient">
+          <i class="fa fa-user text-white"></i>
+          <span class="font-bold">Resident</span>
+        </a>
+      </li>
+      <!-- <li ui-sref-active="active">
+        <a ui-sref="app.table.binder">
+          <i class="fa fa-paperclip text-white"></i>
+          <span class="font-bold">Binder</span>
+        </a>
+      </li> -->
+      <li ui-sref-active="active">
+        <a ui-sref="app.table.ward">
+          <i class="fa fa-puzzle-piece text-white"></i>
+          <span class="font-bold">Unit</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.table.nhuser">
+          <i class="fa fa-users text-white"></i>
+          <span class="font-bold">User</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <!--    <li ng-hide="app.loginPlan=='PL_SILVER'">
+            <a href class="auto">      
+                <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                </span>
+                <i class="fa fa-cog icon text-white"></i>
+                <span class="font-bold" translate="System">System</span>
+            </a>
+            <ul class="nav nav-sub dk">            
+                <li ui-sref-active="active">
+                    <a ui-sref="app.pendashboard">
+                        <i class="fa fa-th-large text-white"></i>
+                        <span class="font-bold" >Pen Dashboard</span>
+                    </a>
+                </li>
+    
+            </ul>
+            <ul class="nav nav-sub dk">            
+                <li ui-sref-active="active">
+                    <a ui-sref="app.application">
+                        <i class="fa fa-th-large text-white"></i>
+                        <span class="font-bold">Application</span>
+                    </a>
+                </li>
+    
+            </ul>
+            <ul class="nav nav-sub dk">            
+                <li ui-sref-active="active">
+                    <a ui-sref="app.table.appsystem">
+                        <i class="fa fa-th-large text-white"></i>
+                        <span class="font-bold">App-System</span>
+                    </a>
+                </li>
+    
+            </ul>
+        </li>-->
+  <li ui-sref-active="active">
+    <a ui-sref="app.table.binder">
+      <i class="fa fa-paperclip text-white"></i>
+      <span class="font-bold">Resident Binder</span>
+    </a>
+  </li>
+
+  <li ui-sref-active="active">
+    <a ui-sref="app.table.newadmission">
+      <!-- <i class="fa fa-video-camera text-white"></i> -->
+      <img src="img/newadmissionxxxhdpi.png" />
+      <span class="font-bold">New Admission </span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.table.virtualvisit">
+      <i class="fa fa-video-camera text-white"></i>
+      <span class="font-bold">Virtual Visit </span>
+      <!--<span class="font-bold">Page Information</span>-->
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.table.viewer">
+      <i class="fa fa-bullseye text-white"></i>
+      <!--<span class="font-bold">Page Information</span>-->
+      <span class="font-bold">Viewer</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.table.archive_viewer">
+      <i class="fa fa-eye-slash text-white"></i>
+      <span class="font-bold">Archive Viewer</span>
+    </a>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.table.printpage">
+      <i class="glyphicon glyphicon-print text-white"></i>
+      <!--<span class="font-bold">Print Information</span>-->
+      <span class="font-bold">Print Queue</span>
+    </a>
+  </li>
+  <!--    <li>
+            <a href class="auto">
+                <span class="pull-right text-muted">
+                    <i class="fa fa-fw fa-angle-right text"></i>
+                    <i class="fa fa-fw fa-angle-down text-active"></i>
+                </span>
+                <i class="fa fa-cog icon text-white"></i>
+                <span class="font-bold" translate="Form">Form</span>
+            </a>
+            <ul class="nav nav-sub dk">-->
+  <!--            <li ui-sref-active="active">
+                    <a ui-sref="app.table.formpageorder">
+                        <i class="glyphicon glyphicon-sort-by-order text-white"></i>
+                        <span class="font-bold">Order Form</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.table.formpatientorder">
+                        <i class="glyphicon glyphicon-sort-by-order text-white"></i>
+                        <span class="font-bold">Resident Form</span>
+                    </a>
+                </li>-->
+  <!--            <li ui-sref-active="active">
+                    <a ui-sref="app.table.orderform">
+                        <i class="glyphicon glyphicon-sort-by-order text-white"></i>
+                        <span class="font-bold">Order</span>
+                    </a>
+                </li>
+    
+            </ul>
+        </li>-->
+  <li ui-sref-active="active">
+    <a ui-sref="app.table.orderform">
+      <i class="glyphicon glyphicon-sort-by-order text-white"></i>
+      <span class="font-bold">Paper Order Status</span>
+      <!--<span class="font-bold">Digital Form Order Status</span>-->
+    </a>
+  </li>
+
+  <li>
+    <!--<a href class="auto">      
+            <span class="pull-right text-muted">
+                <i class="fa fa-fw fa-angle-right text"></i>
+                <i class="fa fa-fw fa-angle-down text-active"></i>
+            </span>
+            <i class="fa fa-cog icon text-white"></i>
+            <span class="font-bold" translate="Help">Help</span>
+        </a>-->
+    <ul class="nav nav-sub dk">
+      <li ui-sref-active="active">
+        <a ui-sref="app.table.table_userguide">
+          <i class="fa fa-th-large text-white"></i>
+          <span class="font-bold">User Manual</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+  <!--
+    <li ui-sref-active="active">
+        <a ui-sref="app.table.unprintviewer">
+            <i class="glyphicon glyphicon-edit text-white"></i>
+            <span class="font-bold">Un print</span>
+        </a>
+    </li>
+    <li ui-sref-active="active" ng-hide="app.loginPlan=='PL_SILVER'">
+        <a ui-sref="app.table.lcd">
+            <i class="fa fa-sliders  text-white"></i>
+            <span class="font-bold">LCD</span>
+        </a>
+    </li>
+    -->
+  <!--    <li ui-sref-active="active">
+            <a ui-sref="app.table.companytype">
+                <i class="glyphicon  icon-user text-white"></i>
+                <span class="font-bold">Company Type</span>
+            </a>
+        </li>-->
+  <!--        <li ui-sref-active="active">
+                <a ui-sref="app.table.papertype">
+                    <i class="glyphicon  icon-user text-white"></i>
+                    <span class="font-bold">Paper Type</span>
+                </a>
+            </li>-->
+  <!--    <li ui-sref-active="active">
+            <a ui-sref="app.table.role">
+                <i class="glyphicon  icon-user text-white"></i>
+                <span class="font-bold">Role master</span>
+            </a>
+        </li>    -->
+
+  <li class="line dk hidden-folded"></li>
+
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.your_stuff.YOUR_STUFF">Your Stuff</span>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.page.profile">
+      <i class="fa fa-user text-success-lter"></i>
+      <!--<b class="badge bg-success pull-right">30%</b>-->
+      <span class="font-bold">Profile</span>
+    </a>
+  </li>
+</ul>
+<!-- / list -->

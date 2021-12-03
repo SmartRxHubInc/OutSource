@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <!--<h3 class="modal-title">Profile Image</h3>-->
+    <div class="row">
+        <div class="col-sm-4 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">Upload Image</h1>
+        </div>
+        <div class="row col-sm-8 text-right hidden-xs pull-right" style="padding-right: 30px;">
+            <!--<lable class="pull-right" ><i  ng-click="cancel()" class="glyphicon glyphicon-remove" ></i></lable>--> 
+        </div> 
+    </div>
+</div>
+<!--<div class="wrapper-md">-->
+<div class="">
+    <div class="panel-body" ng-controller="ImageCropCtrl">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <div class="m-b">
+                        <input ui-jq="filestyle" ui-options="{icon: false, buttonName: 'btn-primary'}" type="file" id="fileInput" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="btn-group m-b">
+                        <!--<div class="btn-group m-t">-->
+                        <button class="btn btn-success" ng-click="getImage()">Update</button>
+<!--                        <label class="btn btn-default" ng-model="cropType" btn-radio="'circle'">Circle</label>
+                        <label class="btn btn-default" ng-model="cropType" btn-radio="'square'">Square</label>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <center>
+                <div class="col-sm-12">
+                    <div class="wrapper-xs b-a bg-white m-r-xs m-b-xs">
+                        <div class="bg-light" style="height:220px">
+                            <img-crop 
+                                image="myImage" 
+                                result-image="myCroppedImage"
+                                result-image-size="160"
+                                area-type="square"
+                                ></img-crop>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        </div>
+<!--        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="getImage()">Update</button>
+        </div>-->
+    </div>
+
+
+</div>
+
+

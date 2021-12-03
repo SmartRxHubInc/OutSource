@@ -1,0 +1,362 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.asideFolded = false; app.settings.asideDock = false;"  ng-controller="RxDashboardCtrl" objectEquality="true" ng-show="app.rxDashboardPenInfo == 0">
+    <!-- main -->
+    <div class="col">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-4 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+                </div>
+                <div class="row col-sm-8 text-right hidden-xs pull-left" ng-hide="app.loginPlan == 'PL_SILVER'">
+                    <div class="col-sm-4" ng-show="app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT'">
+                        <select class="form-control" ng-model="store_code" ng-selected="store_code" ng-change="getStoreRxDashbord()" ng-options="i.store_code as i.store_name for i in stores">
+                            <option value="">All Stores</option>
+                        </select>
+                    </div>
+                    <div ng-class="{'col-sm-4':app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT','col-sm-6':app.loginUserType == '1'}"  ng-show="app.loginUserType == '1'">
+                        <select  ng-model="facility_code" ng-selected="facility_code" ng-change="getFacilityRxDashbord()" ng-options="i.facility_code as i.facility_name for i in facilities" class="form-control">
+                            <option value="" selected>All Homes</option>
+                        </select>
+                    </div>
+
+                    <div ng-class="{'col-sm-4':app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT','col-sm-6':app.loginUserType == '1','col-sm-6':app.loginRoleType == 'PH'}" >
+                        <select class="form-control" ng-model="unit_code" ng-selected="unit_code" ng-change="getUnitRxDashbord()" ng-options="i.unit_code as i.unit_name for i in units">
+                            <option value="">All Units</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- / main header -->
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row row-sm">
+                        <div class="col-lg-12">
+                            <div class="col-md-3" style='padding-left:0px;' ng-show="facility_code != ''"><pre class="alert alert-info"><b>Last Uploaded Page </b> <br/><em>{{dashbord.last_upload_page_date}}</em></pre></div>  
+                            <!--<div class="col-md-4" style='padding-left:0px;' ng-show="facility_code != ''"><pre class="alert alert-info"><b>Last Upload Page </b> <br/><em>{{dashbord.last_upload_page_date}}</em></pre></div>-->  
+                            <div class="col-md-3" style='padding-left:0px;' ng-show="facility_code != ''"><pre class="alert alert-info"><b>Last Print Page </b><br/><em>{{dashbord.last_print_page_date}}</em></pre></div>  
+                            <div class="col-md-3" style='padding-left:0px;' ng-show="facility_code != ''"><pre class="alert alert-info"><b>Doctor Day </b><br/><em ng-if="doctor_day == ''">{{dashbord.doctor_day}}</em><em ng-if="doctor_day != ''">{{doctor_day}}</em></pre></div>  
+                            <div class="col-md-3" style='padding-left:0px;padding-right:0px;' ng-show="facility_code != ''"><pre class="alert alert-info"><b>Last Resident Sync </b><br/><em>{{dashbord.last_kroll_sync_dt}}</em></pre></div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 " ng-show="facility_code != ''" style="margin-bottom: 10px;padding-left:0px;padding-right:0px;">
+                <div class="row row-sm" style='padding-left:0px;'>  
+
+                    <div class="col-md-2 unit_health" ng-if="terminalData != ''" data-ng-repeat="j in terminalData" style="padding-bottom: 10px;">
+                        <div class="btn btn-addon {{checkPenHelthStatus(j.cminute)}}" style="  width: 100%;
+                             height: 35px;
+                             word-wrap: break-word;
+                             text-align: center;
+                             position: relative;
+                             overflow: hidden;
+                             white-space: nowrap;
+                             text-overflow: ellipsis;"tooltip-html-unsafe="Last health Received: {{j.healthstatus_dt}}" tooltip-append-to-body="true" tooltip-trigger:"focus" > {{j.unit_name}}
+                    </div>                        
+                </div>                
+            </div>           
+        </div>           
+
+
+        <!-- stats -->
+        <div class="row">
+            <div class="col-md-5">
+                <div class="row row-sm text-center">
+                    <!--<div ui-sref-if="app.loginPlanCode=='PL_GOLD'" class="col-xs-6" ng-show="app.loginUserType == '1'"  ui-sref="app.dashboardinfo">-->
+                    <!--<div ui-sref-if="app.loginPlanCode=='PL_GOLD'" class="col-xs-6" ng-show="app.loginUserType == '1'" ng-click="goFacilityHealthStatus()">-->
+                    <div ui-sref-if="app.loginPlanCode=='PL_GOLD'" class="col-xs-6" ng-show="app.loginUserType == '1'">
+                        <a>
+                            <div cg-busy="{promise:promise,templateUrl:'tpl/loading_template.html'}">
+                                <div class="panel padder-v item">
+                                    <div class="h1 text-info font-thin h1">{{dashbord.facility_count}}</div>
+                                    <span class="text-muted text-xs" ng-if="dashbord.facility_count <= 1">Facility</span>
+                                    <span class="text-muted text-xs" ng-if="dashbord.facility_count > 1">Facilities</span>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-6" ng-show="app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT'" >
+                        <a>
+                            <div cg-busy="{promise:promise,templateUrl:'tpl/loading_template.html'}">
+                                <div class="panel padder-v item" ng-click="gotoStore()">
+                                    <!--<div class="panel padder-v item" ui-sref="app.table.store">-->
+                                    <div class="font-thin h1" ng-init="dataR = 10">{{dashbord.store_count}}</div>
+                                    <span class="text-muted text-xs" ng-if="dashbord.store_count <= 1">Store</span>
+                                    <span class="text-muted text-xs" ng-if="dashbord.store_count > 1">Stores</span>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!--aalasj-->
+                    <div class="col-xs-12 m-b-md">
+                        <div cg-busy="{promise:promise,templateUrl:'tpl/loading_template.html'}">
+                            <div class="r  dker item hbox no-border bg-info">
+
+                                <!--<div class="col dk padder-v r-r" ui-sref="app.printdashboard">-->
+                                <!--<div class="col dk padder-v r-r" ng-click="goPrintDashboard()">-->
+                                <div class="col dk padder-v r-r">
+                                    <a> 
+                                        <span class="text-white font-thin h1 block" ng-init="dataN = 20">{{dashbord.printing_done}}</span>
+                                        <span class="text-muted text-xs">Print Done</span>
+                                    </a>
+                                </div>
+                                <!--<div class="col dk padder-v r-r" ui-sref="app.printdashboard">-->
+                                <!--<div class="col dk padder-v r-r" ng-click="goPrintDashboard()">-->
+                                <div class="col dk padder-v r-r">
+                                    <a> 
+                                        <span class="text-white font-thin h1 block" ng-init="dataN = 20">{{dashbord.printing_queue_pending}}</span>
+                                        <!--</div>-->
+                                        <span class="text-muted text-xs">Print Queue</span>
+                                    </a>
+                                </div>
+                                <!--<div class="col dk padder-v r-r"  ui-sref="app.table.printservice">-->
+                                <div class="col dk padder-v r-r"  ng-click="goPrintService()">
+                                    <a> 
+                                        <span class="text-white font-thin h1 block" ng-init="dataN = 20">{{dashbord.print_service}}</span>
+                                        <span class="text-muted text-xs">Print Service</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 m-b-md" ng-show="facility_code != ''">
+                        <div cg-busy="{promise:promise,templateUrl:'tpl/loading_template.html'}">
+                            <div class="r  dker item hbox no-border bg-info">
+
+                                <div class="col dk padder-v r-r" ng-click="goPenDashboardInfo()">
+                                    <a> 
+                                        <span class="text-white font-thin h1 block" ng-init="dataN = 20">{{dashbord.pens_count}}</span>
+                                        <span class="text-muted text-xs">Pens</span>
+                                    </a>
+                                </div>
+                                <div class="col dk padder-v r-r" ng-click="goPenDashboardInfo()">
+                                    <a> 
+                                        <span class="text-white font-thin h1 block" ng-init="dataN = 20">{{dashbord.active_pens_count}}</span>
+                                        <!--</div>-->
+                                        <span class="text-muted text-xs">Active Pens</span>
+                                    </a>
+                                </div>
+                                <div class="col dk padder-v r-r"  ng-click="goPenDashboardInfo()">
+                                    <a> 
+                                        <span class="text-white font-thin h1 block" ng-init="dataN = 20">{{dashbord.low_battery_pens_count}}</span>
+                                        <span class="text-muted text-xs">Low Battery</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 m-b-md">
+                        <div cg-busy="{promise:promise,templateUrl:'tpl/loading_template.html'}">
+                            <div class="r bg-primary dker item hbox no-border">
+
+                                <div class="col dk padder-v r-r w-auto-xs">
+                                    <span class="text-white font-thin h1 block" ng-init="dataN = 20">{{dashbord.last_hour_page_count}}</span>
+                                    <span class="text-muted text-xs">Last Hour</span>
+                                </div>
+                                <div class="col dk padder-v r-r">
+                                    <div class="text-white font-thin h1">
+                                        <span>{{dashbord.today_page_count}}</span></div>
+                                    <span class="text-muted text-xs">Today Page Uploads</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="panel wrapper">
+                    <div cg-busy="{promise:promise,templateUrl:'tpl/loading_template.html'}">
+                        <div class="panel-heading font-bold">Page Print Status</div>
+                        <div class="panel-body text-center">              
+                            <chart value="printPagePIChart" id="printPagePIChart" ></chart>
+                            <div class="line pull-in"></div>
+                            <div class="text-xs">
+                                <i class="fa fa-circle text-info"></i> {{done_print_count}}%({{dashbord.printing_done}}) Done
+                                <i class="fa fa-circle text-muted m-l"></i> {{pending_print_count}}%({{dashbord.printing_queue_pending}}) Remaining
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel hbox hbox-auto-xs no-border">
+            <div class="col-md-6">
+                <div class="panel wrapper">
+                    <!--<div cg-busy="{promise:promise1,templateUrl:'tpl/loading_template.html'}">-->
+                    <h4 class="font-thin m-t-none m-b text-muted">Print/Fax Page Weekly Chart</h4>
+                    <chart value="printPageChart" id="printPageChart"></chart>
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel wrapper">
+                    <!--<div cg-busy="{promise:promise1,templateUrl:'tpl/loading_template.html'}">-->
+                    <h4 class="font-thin m-t-none m-b text-muted">Page Weekly Chart</h4>
+                    <chart value="uploadPageChart" id="uploadPageChart"></chart>
+                    <!--</div>-->
+                </div>
+            </div>
+
+        </div>            
+        <!--New Page Weekly Chard-->
+        <!-- 
+        <div class="panel hbox hbox-auto-xs no-border">
+            <div class="col-md-6">
+                <div class="panel wrapper">
+                    <div cg-busy="{promise:promise,templateUrl:'tpl/loading_template.html'}">
+                        <h4 class="font-thin m-t-none m-b text-muted">New Page Weekly Chart</h4>
+                        <chart  value="printNewPageChart" id="printNewPageChart">
+
+                        </chart>
+                    </div>
+                </div>
+            </div>
+        </div>            
+        -->
+        <!--            <div class="panel hbox hbox-auto-xs no-border" ng-show="app.loginRoleCode == 'PHADM' && pen_health_status[0].facility_code!=''">
+                        <div class="panel-heading">
+                            <h4 class="font-thin">Pen Health Status</h4>
+        
+                            <div class="btn btn-addon btn-success"><i class="fa fa-arrow-circle-o-up"></i>Connection Ok</div>
+                            <div class="btn btn-addon btn-warning"><i class="fa fa-arrow-circle-o-up"></i>No Status Over 5min</div>
+                            <div class="btn btn-addon btn-danger"><i class="fa fa-arrow-circle-o-up"></i>No Status Over 10min</div>
+                        </div>
+                        <div class="col-sm-4" data-ng-repeat="i in pen_health_status track by $index">
+                            <div class="panel panel-default">
+                                <div class="panel-heading font-bold" >{{i.facility_name}}</div>
+                                <div class="panel-body">
+                                    <div data-ng-repeat="j in splitUnitName(i.unit_name) track by $index">
+                                        <div class="text-muted"><div class="col-sm-9">{{j}}</div><div class="col-sm-3"><div class="btn btn-addon {{checkPenHelthStatus(i.cdate,i.healthstatus_dt,$index)}}"></div></div><div class="line line-dashed pull-in"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>            -->
+    </div>
+
+    <!--<div class="col-md-4" ng-show="is_show">Last Upload Page :  {{dashbord.last_upload_page_date}}</div>-->
+    <!--<div class="col-md-4" ng-show="is_show">Last Print Page :  {{dashbord.last_print_page_date}}</div>-->
+    <!--<div class="col-md-4" ng-show="is_show">Doctor Day:  {{dashbord.doctor_day}}</div>-->
+</div>
+<!-- / main -->
+<!-- right col -->
+<div class="col w-md bg-white-only b-l bg-auto no-border-xs">
+    <tabset class="nav-tabs-alt" justified="true">
+        <tab>
+            <tab-heading>                    
+                <i class="glyphicon text-md text-muted wrapper-sm" style='font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;'>Recent Activity</i>
+            </tab-heading>
+        </tab>
+    </tabset>
+    <br/>
+    <div class="padder-md">      
+        <!-- streamline -->
+        <div class="bg-info wrapper-sm m-l-n m-r-n m-b r r-2x">
+            Page Status
+        </div>
+        <div cg-busy="{promise:promise,templateUrl:'tpl/loading_template1.html'}">
+            <div class="streamline b-l m-b" style="min-height: 200px;">
+                <div class="sl-item {{getColor($index + 1)}} b-l" data-ng-repeat="i in page_order track by $index">
+                    <div class="m-l">
+                        <div class="text-muted">1 Page uploaded from {{i.facility_name}} / {{i.unit_name}} <b>{{dateDifference(i.cdate, i.dt_last_used)}}</b></div>
+                    </div>
+                </div >
+            </div>
+        </div>
+        <div class="bg-info wrapper-sm m-l-n m-r-n m-b r r-2x">
+            Pen Status
+        </div>
+        <div cg-busy="{promise:promise,templateUrl:'tpl/loading_template1.html'}">
+            <div class="streamline b-l m-b">
+                <div class="sl-item {{getColor($index + 1)}} b-l"  data-ng-repeat="i in pen_status track by $index">
+                    <div class="m-l">
+                        <!--                        <div class="text-muted" >Docked by {{i.facility_name}} / {{i.unit_name}} <b>{{dateDifference(i.pen_datasync_dt)}}</b></div>
+                                                <div class="text-muted" style="color: {{batteryColor(i.battery_health)}}">Pens' battery health {{i.battery_health}} % at {{i.facility_name}} / {{i.unit_name}}  <b>{{dateDifference(i.pen_docked_dt)}}</b></div>-->
+                        <div class="text-muted" >Docked by {{i.facility_name}} / {{i.unit_name}} <b>{{i.pen_datasync_dt}}</b></div>
+                        <div class="text-muted" style="color: {{batteryColor(i.battery_health)}}">Pens' battery health {{i.battery_health}} % at {{i.facility_name}} / {{i.unit_name}}  <b>{{i.pen_docked_dt}}</b></div>
+                        <!--<br/>-->
+                    </div>
+                </div>
+            </div>
+            <!-- / streamline -->
+        </div>
+    </div>
+</div>
+<!-- / right col -->
+</div>
+
+
+
+<div ng-controller="PenDashbordInfo" ng-if="app.rxDashboardPenInfo == 1">
+    <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+            <div class="col-sm-4 col-xs-12">
+                <h1 class="m-n font-thin h3 text-black">Pen Status &nbsp;</h1>
+            </div>
+            <div class="row col-sm-8 text-right hidden-xs pull-right">
+                <div ng-class="app.loginRoleCode == 'PHADM' ? 'col-sm-4' : 'col - sm - 6'" ng-show="app.loginRoleCode == 'PHADM'">
+                    <select class="form-control" ng-model="store_code" ng-change="getGridData()" ng-selected="store_code" ng-options="i.store_code as i.store_name for i in stores" ng-show="app.loginRoleCode == 'PHADM'">
+                        <option value="">All Stores</option>
+                    </select>
+                </div>
+                <div ng-class="app.loginRoleType == 'PH' && app.loginRoleCode != 'PHADM' ? 'col-sm-6' : 'col - sm - 4'"  ng-show="app.loginRoleType == 'PH'">
+                    <select  ng-model="facility_code" ng-selected="facility_code" ng-change="getFacilityPrintData()" ng-options="i.facility_code as i.facility_name for i in facilities" class="form-control">
+                        <option value="">All Homes</option>
+                    </select>
+                </div>
+                <div ng-class="app.loginRoleCode == 'PHADM' ? 'col-sm-4 pull-right' : 'col - sm - 6 pull - right'">
+                    <select class="form-control" ng-model="unit_code" ng-selected="unit_code" ng-change="getUnitPrintData()" ng-options="i.unit_code as i.unit_name for i in units">
+                        <option value="">All Units</option>
+                    </select>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="wrapper-md" >
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <div class="row">
+                    <div class="col-sm-4">
+                        Pen Status
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group-btn">
+                            <a class="btn btn-success pull-right" ng-click="back()"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
+                            <div style="padding: 10px;" class="batterylow pull-right" tooltip="Battery Health is Critically Low" tooltip-append-to-body="true" tooltip-trigger:"focus"></div>
+                            <div style="padding: 10px;" class="batterycharged pull-right" tooltip="Battery Health is Good" tooltip-append-to-body="true" tooltip-trigger:"focus"></div>
+                            <div style="padding: 10px;" class="pendeactive pull-right" tooltip="Pen not active" tooltip-append-to-body="true" tooltip-trigger:"focus"></div>
+                            <div style="padding: 10px;" class="penactive pull-right" tooltip="Pen is active" tooltip-append-to-body="true" tooltip-trigger:"focus"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <div cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+                        <div ng-grid="gridOptions" style="min-height:420px"></div>
+                    </div>
+                    <div class="col-md-12 nodatafound" ng-show="myData.length == 0">
+                        <div class="col-md-12">
+                            <h4>No Information found</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

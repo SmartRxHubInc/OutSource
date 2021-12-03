@@ -1,0 +1,60 @@
+<!-- list -->
+<ul class="nav">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.HEADER">Navigation</span>
+  </li>
+  <li ui-sref-active="active">
+    <!--<a ui-sref="app.dashboard-v1">-->
+    <a ui-sref="app.rxdashboard">
+      <i class="fa fa-th-large icon text-white"></i>
+      <span class="font-bold">Dashboard</span>
+    </a>
+  </li>
+  <li>
+    <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="fa fa-plus icon text-white"></i>
+      <span class="font-bold" translate="Pharmacy">Pharmacy</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li ui-sref-active="active">
+        <a ui-sref="app.table.store">
+          <i class="glyphicon glyphicon-edit text-white"></i>
+          <!--<span class="font-bold" >Location</span>-->
+          <span class="font-bold">Stores</span>
+        </a>
+      </li>
+
+   
+    </ul>
+  </li>
+
+  <li>
+
+
+    <ul class="nav nav-sub dk">
+      <li ui-sref-active="active">
+        <a ui-sref="app.table.table_userguide">
+          <i class="fa fa-th-large text-white"></i>
+          <span class="font-bold">User Manual</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="line dk hidden-folded"></li>
+
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.your_stuff.YOUR_STUFF">Your Stuff</span>
+  </li>
+  <li ui-sref-active="active">
+    <a ui-sref="app.page.profile">
+      <i class="fa fa-user text-success-lter"></i>
+      <span class="font-bold">Profile</span>
+    </a>
+  </li>
+</ul>
+<!-- / list -->

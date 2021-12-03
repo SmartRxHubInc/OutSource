@@ -1,0 +1,54 @@
+08-07-2016
+Reason: for comment filter menu in setting (phrmacy)
+
+.state('app.table.table_comment_filter', {
+                                    url: '/tablecommentfilter',
+                                    templateUrl: 'tpl/comment_filter/table_comment_filter.html',
+                                    resolve: {
+                                        deps: ['$ocLazyLoad',
+                                            function ($ocLazyLoad) {
+                                                return $ocLazyLoad.load('ngGrid').then(
+                                                        function () {
+                                                            return $ocLazyLoad.load('tpl/comment_filter/comment_filter.js');
+                                                        }
+                                                );
+                                            }]
+                                    }
+
+                                }).state('app.table.form_comment_filter', {
+                            url: '/formcommentfilter',
+                            templateUrl: 'tpl/comment_filter/form_comment_filter.html',
+                            resolve: {
+                                deps: ['uiLoad',
+                                    function (uiLoad) {
+                                        return uiLoad.load('tpl/comment_filter/comment_filter.js');
+                                    }]
+                            }
+                        })
+=======================================================================================
+22-07-2016 5:00 pm
+Reason: for Qas Config menu in setting (phrmacy)
+ .state('app.table.table_qas_config', {
+                                    url: '/tableqasconfig',
+                                    templateUrl: 'tpl/qas_config/table_qas_config.html',
+                                    resolve: {
+                                        deps: ['$ocLazyLoad',
+                                            function ($ocLazyLoad) {
+                                                return $ocLazyLoad.load('ngGrid').then(
+                                                        function () {
+                                                            return $ocLazyLoad.load('tpl/qas_config/qas_config.js');
+                                                        }
+                                                );
+                                            }]
+                                    }
+
+                                }).state('app.table.form_qas_config', {
+                            url: '/formqasconfig',
+                            templateUrl: 'tpl/qas_config/form_qas_config.html',
+                            resolve: {
+                                deps: ['uiLoad',
+                                    function (uiLoad) {
+                                        return uiLoad.load('tpl/qas_config/qas_config.js');
+                                    }]
+                            }
+                        });

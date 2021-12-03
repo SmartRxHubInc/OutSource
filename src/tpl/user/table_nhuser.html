@@ -1,0 +1,100 @@
+<!--<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Nursing Home User</h1>
+</div>-->
+
+<div ng-controller="NhUserCtrl">
+    <!--    <style>
+            .ngCell  {
+                display : table-cell;
+                height: auto !important;
+                overflow:visible;
+                position: static;
+                word-break: break-all;
+            }
+    
+            .ngRow {
+                display : table-row;
+                height: auto !important;
+                position: static;
+            }
+    
+            .ngCellText{
+                height: auto !important;
+                white-space: normal;
+                overflow:visible;
+            }
+        </style>-->
+    <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+            <div class="col-sm-4 col-xs-12">
+                <h1 class="m-n font-thin h3 text-black">Nursing Home Users</h1>
+            </div>
+            <div class="row col-sm-8 text-right hidden-xs pull-right">
+                <div class="col-sm-6" style="float: right;" ng-show="app.loginUserType == '1'">
+                    <select  ng-model="facility_code" ng-selected="facility_code" ng-change="getFacilityUserData()" ng-options="i.facility_code as i.facility_name for i in facilities" class="form-control">
+                        <option value="" selected>All Homes</option>
+                    </select>
+                </div>
+                <div class="col-sm-6" style="float: right;" ng-show="app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT'">
+                    <select class="form-control" ng-model="store_code" ng-selected="store_code" ng-change="getStoreUserData()" ng-options="i.store_code as i.store_name for i in stores">
+                        <option value="">All Stores</option>
+                    </select>
+                </div>
+                <div class="col-sm-6" style="float: right;" ng-show="app.loginUserType == '0'">
+                    <select class="form-control" ng-model="unit_code" ng-selected="unit_code" ng-change="getUnitUserData()" ng-options="i.unit_code as i.unit_name for i in units">
+                        <option value="">All Units</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-md">
+        <div ng-if="app.loginRoleCode !='SCNBT' && app.loginRoleCode !='SCTT'"  style="float: right; margin-top: 5px;margin-right: 10px;">
+            <!--<a ui-sref="app.table.formnhuser" class="btn btn-success">Add</a>-->
+            <a  ng-click="addUser()" class="btn btn-success">Add</a>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Nursing Home Users
+            </div>
+            <div class="table-responsive">
+                <div class="input-group">
+                    <input type="text" name="searchText" ng-model="filterOptions.filterText" class="form-control" placeholder="Search by User Name" />
+                    <span class="input-group-addon glyphicon glyphicon-search" style="top: 0;"></span>
+                </div>
+                <div cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+                    <div ng-grid="gridOptions" style="min-height:420px"></div>
+                </div>
+                <div class="col-md-12 nodatafound" ng-show="myData.length == 0">
+                    <div class="col-md-12">
+                        <h4>No User found</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/ng-template" id="userDialogId">
+        <form name="form" class="form-validation">
+        <div class="panel-heading">
+        <span class="h4">User Setting</span>
+        </div>
+        <div class="panel-body">
+        <input class="form-control" type="hidden" ng-model="user.user_code">
+        <div class="form-group">
+        <label class="col-sm-3 control-label">Login Try<span class="reqire-field-color">*</span></label>
+        <div class="col-sm-9">
+        <input class="form-control" ng-model="user.total_try" ng-maxlength="1" ng-pattern=" /^[0-9]*$/" placeholder="user login try" required>
+        </div>
+        </div>
+        </div>
+        <footer class="panel-footer text-right bg-light lter">
+        <button type="submit" class="btn btn-success" ng-click="submitUserConfig()" ng-disabled="form.$invalid">Submit</button>
+        </footer>
+
+        </form>
+    </script>
+</div>
+

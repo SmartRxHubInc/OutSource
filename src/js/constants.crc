@@ -1,0 +1,36 @@
+11-06-2016
+add Constant
+    GET_DASHBOARD_CHART_DATA: 'getDashboardChartData'
+Reason: for separate dashboard and chart data 
+=====================================
+30-06-2016
+add Constant
+GET_CONTACT: 'getContact'
+Reason: for get Contact person and doctor day data when facility edit
+===================================
+08-07-2016
+Reason: for crud of comment filter
+add action constant
+
+ VIEW_FACILITY_DETAIL: 'viewFacilityDetail',
+    GET_COMMENT_FILTER_MST: 'getCommentFilterMst',
+    INSERT_COMMENT_FILTER_MST: 'insertCommentFilterMst',
+    UPDATE_COMMENT_FILTER_MST: 'updateCommentFilterMst',
+    DELETE_COMMENT_FILTER_MST: 'deleteCommentFilterMst'
+
+====================================================================
+22-07-2016
+Reason: for crud of QAS Config
+add action constant
+
+INSERT_QAS_CONFIG_MST: 'insertQasConfigMst',
+    UPDATE_QAS_CONFIG_MST: 'updateQasConfigMst',
+    DELETE_QAS_CONFIG_MST: 'deleteQasConfigMst',
+    GET_QAS_CONFIG_MST: 'getQasConfigMst'
+
+=======================================================================
+01-09-2016 Jaimin Patel
+
+add action constant
+
+GET_DRP_TIME_ZONE: 'getDrpTimeZone'

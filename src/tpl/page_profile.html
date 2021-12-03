@@ -1,0 +1,169 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-controller="ProfileCtrl">
+  <div class="col">
+    <div
+      style="
+        background: url(img/c4.jpg) center center;
+        background-size: cover;
+        height: 165px;
+      "
+    >
+      <div class="wrapper-lg bg-white-opacity">
+        <div class="row">
+          <div class="col-sm-7">
+            <!--                        <a href class="thumb-lg pull-left m-r">
+                                                    <img src="img/a0.jpg" class="img-circle">
+                                                    <img ng-src="{{app.logo}}" class="img-circle"/>
+                                                </a>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper bg-white b-b">
+      <ul class="nav nav-pills nav-sm">
+        <li class="active"><a href>Profile</a></li>
+        <li><a ui-sref="app.table.chngpwd">Change Password</a></li>
+        <!--<li><a ng-controller="AppCtrl" ui-sref="access.signin" ng-click="logout()">Logout</a></li>-->
+      </ul>
+    </div>
+    <div class="padder">
+      <div class="streamline b-l b-info m-l-lg m-b padder-v">
+        <div>
+          <div class="m-l-lg">
+            <div class="m-b-xs">
+              <a href class="h4">{{profiles.username}}</a>
+            </div>
+          </div>
+        </div>
+        <!-- .comment-reply -->
+        <div class="m-l-lg">
+          <div class="panel b-a">
+            <table class="table table-hover table-condensed">
+              <tr>
+                <td class="col-sm-8">
+                  <span
+                    class="text-muted m-l-sm pull-left"
+                    style="padding-right: 10px"
+                  >
+                    Username
+                  </span>
+                  {{profiles.username|| 'empty' }}
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="col-sm-8">
+                  <span
+                    class="text-muted m-l-sm pull-left"
+                    style="padding-right: 10px"
+                  >
+                    Email
+                  </span>
+                  {{profiles.user_email|| 'empty' }}
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <form
+                    editable-form
+                    name="editableForm"
+                    onbeforesave="saveProfile($data,profiles.user_code)"
+                    class="form-validationform-buttons form-inline"
+                  >
+                    <div class="col-sm-8" style="padding-left: 0px">
+                      <span
+                        class="text-muted m-l-sm pull-left"
+                        style="padding-right: 10px"
+                      >
+                        User Initial
+                      </span>
+                      <span
+                        editable-text="profiles.user_initial"
+                        e-name="user_initial"
+                        onbeforesave="checkName($data)"
+                        e-required
+                        >{{ profiles.user_initial || 'empty' }}</span
+                      >
+                    </div>
+
+                    <div ng-hide="true" class="buttons">
+                      <button
+                        type="button"
+                        class="btn-primary"
+                        ng-click="editableForm.$show()"
+                        ng-show="!editableForm.$visible"
+                      >
+                        Edit
+                      </button>
+                      <!-- buttons to submit / cancel form -->
+                      <span ng-show="editableForm.$visible">
+                        <button
+                          type="submit"
+                          class="btn-primary"
+                          ng-disabled="editableForm.$invalid"
+                        >
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          class="btn-default"
+                          ng-disabled="editableForm.$waiting"
+                          ng-click="editableForm.$cancel()"
+                        >
+                          Cancel
+                        </button>
+                      </span>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-sm-8">
+                  <span
+                    class="text-muted m-l-sm pull-left"
+                    style="padding-right: 10px"
+                  >
+                    User Role
+                  </span>
+                  {{profiles.role_name|| 'empty' }}
+                </td>
+                <td></td>
+              </tr>
+              <tr ng-show="app.loginRoleCode == 'PHADM'">
+                <td colspan="2">
+                  <form name="form" class="form-inline form-validation">
+                    <div class="col-sm-8" style="padding-left: 0px">
+                      <span
+                        class="text-muted m-l-sm pull-left"
+                        style="padding-right: 10px"
+                      >
+                        Pharmacy Logo
+                      </span>
+                    </div>
+                    <div class="buttons">
+                      <input
+                        type="file"
+                        ng-model="company_logo"
+                        file-model="company_logo"
+                        class="form-control"
+                        style="width: 20%"
+                        required
+                      />
+                      <button
+                        class="btn-primary"
+                        ng-click="updateLogo()"
+                        ng-disabled="form.$invalid"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

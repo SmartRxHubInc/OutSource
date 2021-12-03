@@ -1,0 +1,57 @@
+<div class="container w-xl w-auto-xs" ng-init="app.settings.container = false;">
+    <a href class="navbar-brand block m-t">{{app.name}}</a>
+    <div class="m-b-lg" ng-controller="ResetPassController">
+        <div class="wrapper text-center" style="padding-right: 0px;padding-left: 0px;">
+            <strong>Enter new password to reset your password</strong>
+        </div>
+        <form name="reset">
+            <div class="m-t" ng-show="is_active == 1">
+                <div class="alert alert-success">
+                    <p>{{msg}}</p>
+                </div>
+            </div>
+            <div class="m-t" ng-show="is_active == 2">
+                <div class="alert alert-danger">
+                    <p>{{msg}}</p>
+                </div>
+            </div>
+            <div class="m-b-sm" style="text-align: center;">
+                <div class="btn-group" ng-init="user_type = '1'">
+                    <label ng-disabled="true" class="btn btn-sm btn-info ng-untouched ng-valid ng-dirty active ng-valid-parse" ng-model="user_type" btn-radio="'1'"><i class="fa fa-check text-active"></i> Pharmacy</label>
+                    <label ng-disabled="true" class="btn btn-sm btn-success ng-untouched ng-valid ng-dirty" ng-model="user_type" btn-radio="'0'"><i class="fa fa-check text-active"></i> Facility</label>
+                </div>
+            </div>
+            <div class="list-group list-group-sm">
+                <div class="list-group-item">
+                    <label class=" disabled" >{{email}}</label>
+                    <!--<input ng-disabled="true"  type="email" placeholder="Email" ng-model="email" class="form-control no-border" required>-->
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm" >
+                <div class="list-group-item">
+                    <input type="password" ng-blur="checkPwd()" 
+                           ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}|([XXXXXXXX]{8,8})$/"
+                           placeholder="New Password" class="form-control no-border" ng-model="password" required>
+                </div>
+            </div>
+
+            <div class="list-group list-group-sm" >
+                <div class="list-group-item">
+
+                    <input type="password" ng-blur="checkPwd()"
+                           ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}|([XXXXXXXX]{8,8})$/"
+                           placeholder="Confirm Password" class="form-control no-border" ng-model="con_password" required>
+                </div>
+            </div>
+            <div class="">
+                <label style="font-size: 11px;    margin-top: -10px;" >Password containing at least 8 characters and a number,upper and lower</label>
+            </div>
+            <button type="submit" ng-disabled="reset.$invalid" class="btn btn-lg btn-primary btn-block"  ng-click="submit()" >Submit</button>
+        </form>
+        <div class="line line-dashed"></div>
+        <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">Sign in</a>
+
+    </div>
+    <div class="text-center" ng-include="'tpl/blocks/page_footer.html'"></div>
+</div>
