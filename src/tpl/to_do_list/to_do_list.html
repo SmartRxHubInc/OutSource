@@ -1,0 +1,162 @@
+<div ng-controller="ToDoListCtrl" class="to-do-list">
+    <div class="bg-light lter b-b wrapper-md">
+        <h1 class="m-n font-thin h3">To do List</h1>
+    </div>
+    <div>
+        <div class="wrapper-md" >
+            <div class="row">
+                <div class="box" ng-repeat="step in steps">
+                    <a>
+                        <div>
+                            <div class="panel p-15 item" ng-click="getList(step.name)">
+                                <span class="badge badge-pill badge-count ml-2">{{step.count}}</span>
+                                <span class="text-muted text-xs badge-text">{{step.name}}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row" ng-if="isList">
+                <div class="panel wrapper m-10">
+                    <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Resident Name</th>
+                            <th scope="col">Unit</th>
+                            <th scope="col">Page No.</th>
+                            <th scope="col">Date & Time</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="item in data">
+                            <td>{{$index + 1}}</th>
+                            <td>{{item.residentName}}</td>
+                            <td>{{item.unit}}</td>
+                            <td>{{item.pageNo}}</td>
+                            <td>{{item.dateTime}}</td>
+                            <td class="edit-todo" ng-click="editResident(false)"><i class="fa fa-eye"></i></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body row" ng-if="!isList">
+                <div class="col-md-8 col-sm-8 panel panel-default">
+                    <h2 class="text-center">DIGITAL PRESCRIBER'S ORDERS </h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="col-sm-2 control-label label-right">Facility:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Facility" value="">
+                            </div>
+                            <div class="line line-dashed pull-in"></div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <label class="col-sm-2 control-label label-right">Unit:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Unit" value="">
+                            </div>
+                            <div class="line line-dashed pull-in"></div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <label class="col-sm-2 control-label label-right">Resident:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Resident" value="">
+                            </div>
+                            <div class="line line-dashed pull-in"></div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <label class="col-sm-2 control-label label-right">Room:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Room" value="30">
+                            </div>
+                            <div class="line line-dashed pull-in"></div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <label class="col-sm-2 control-label label-right">Health Card#:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Health Card#" value="90808900">
+                            </div>
+                            <div class="line line-dashed pull-in"></div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <label class="col-sm-4 control-label label-right">DOB(dd/mm/yyyy):</label>
+                            <div class="col-sm-8">
+                                <input type="date" class="form-control" placeholder="Health Card#" value="02/01/1960">
+                            </div>
+                            <div class="line line-dashed pull-in"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <label class="col-sm-4 h4 control-label label-right">PROGRESS NOTES:</label>
+                            </div>
+                            <div class="row" ng-repeat="x in [].constructor(count) track by $index">
+                                <div class="col-md-4 table-bordered">
+                                    <label class="control-label label-left col-md-6">Date:</label>
+                                    <label class="control-label label-right col-md-6">Time:</label>
+                                </div>
+                                <div class="col-md-4 table-bordered">
+                                    <label class="control-label label-left col-md-6">Date:</label>
+                                    <label class="control-label label-right col-md-6">Time:</label>
+                                </div>
+                                <div class="col-md-4 table-bordered">
+                                    <label class="control-label label-left col-md-6">Date:</label>
+                                    <label class="control-label label-right col-md-6">Time:</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div> 
+                    <!-- <div class="form-group">
+                        <label class="col-sm-3 control-label label-right">Name<span class="reqire-field-color">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" ng-model="user.store_name" placeholder="Store Name" required>
+                        </div>
+                    </div>    -->
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="col-md-3">
+                        <button class="btn btn-primary">PREVIOUS</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-info">NEXT</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-default" ng-click="editResident(true)">BACK</button>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="h2">Nurse: Please Initial The Documentation As Performed</span>
+                        </div>
+                        <div class="panel-body row mt-10" ng-repeat="x in [].constructor(count) track by $index" >
+                            <div class="col-md-7 panel panel-default ml-10 mr-10">
+                                <div ng-repeat="signature in signatureList">
+                                    <h5 ng-class="{'completed-sign mb-50 text-center signature':signature.isCompleted,'mb-50 text-center pending-sign signature':!signature.isCompleted}" ng-click="open()">{{signature.name}}</h5>
+                                </div>
+                            </div>
+                            <div class="ml-10 col-md-4 panel panel-default">
+                                <div ng-repeat="otherSignature in otherSignatureList">
+                                    <h5 ng-class="{'completed-sign mb-50 text-center other-signature': otherSignature.isCompleted && !otherSignature.isNotApplicable, 'not-applicable-sign mb-50 text-center other-signature': !otherSignature.isCompleted && otherSignature.isNotApplicable, 'pending-sign mb-50 text-center other-signature': !otherSignature.isCompleted && !otherSignature.isNotApplicable}">{{otherSignature.name}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                   
+            </div>
+
+            </div>
+    </div>
+        
+    </div>
+    
+</div>

@@ -5290,3 +5290,84 @@ a.text-#000000:hover {
         top:0;
     }
 }*/
+
+
+.to-do-list .p-15{
+  padding: 15px;
+}
+
+.to-do-list .box{
+  width: 13%;
+    display: inline-block;
+    margin: 10px;
+}
+
+.to-do-list .badge{
+  background-color: #12375c !important;
+  display: inline-block;
+  min-width: 10px;
+  padding: 8px 8px;
+  font-size: 16px;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #777;
+  border-radius: 20px;
+}
+
+.to-do-list .badge-text{
+  color: #12375c;
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.to-do-list .badge-count{
+  color: #fff;
+}
+
+.m-10{
+  margin: 10px;
+}
+
+
+.to-do-list .table > tbody > tr > td, .table > thead > tr > th{
+  padding: 15px 15px !important;
+  border-top: 1px solid #ddd !important;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.to-do-list .table > thead > tr > th{
+  color: #ef8c06 !important;
+}
+.to-do-list .table > tbody > tr > td.edit-todo{
+  color:#ef8c06 !important
+}
+.to-do-list .table > tbody > tr > td.edit-todo:hover{
+  cursor:pointer;
+}
+.mb-50{
+  margin-bottom: 50px;
+}
+.ml-10{
+  margin-left:10px
+}
+.mr-10{
+  margin-right:10px
+}
+.not-applicable{
+  color:red;
+  font-weight:700;
+}
+.pending-sign{
+  opacity: 0.3;
+}
+.completed-sign{
+  color:green
+}
+.signature:hover,.other-signature:hover{
+  cursor: pointer;
+}

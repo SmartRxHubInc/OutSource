@@ -280,3 +280,13 @@ app.constant("SPURL", "https://smartpaper.smartrxhub.com/api/index.php?");
 //app.constant('URL', 'http://localhost/eRx/v1_3erx/portal/api/index.php?');
 //app.constant('FILESPURL', 'http://localhost/eRx/v1_3erx/portal/api/');
 //app.constant('SPURL', 'https://smartpaper.smartrxhub.com/api/index.php?');
+
+app.constant("ToDoSteps", {
+  step1: "Perscriber's",
+  step2: "Nurse 1 Sign",
+  step3: "Nurse 2 Sign",
+  step4: "Care Plan",
+  step5: "Consent",
+  step6: "Mar/Tar",
+  step7: "Lab",
+});

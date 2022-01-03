@@ -58,7 +58,21 @@ angular
                                 ],
                             },
                         })
-              
+                        .state("app.to-do-list", {
+                            url: "/to-do-list",
+                            templateUrl: "tpl/to_do_list/to_do_list.html",
+                            resolve: {
+                                deps: [
+                                    "$ocLazyLoad",
+                                    function ($ocLazyLoad) {
+                                        
+                                        //return $ocLazyLoad.load("ngGrid").then(function () {
+                                            return $ocLazyLoad.load(["js/controllers/to_do_list.js","js/controllers/bootstrap.js"]);
+                                       // });
+                                    },
+                                ],
+                            },
+                        })
                         .state("app.ui", {
                             url: "/ui",
                             template: '<div ui-view class="fade-in-up"></div>',
