@@ -4,11 +4,11 @@
     </div>
     <div>
         <div class="wrapper-md" >
-            <div class="row">
+            <div class="row to-do-row">
                 <div class="box" ng-repeat="step in steps">
                     <a>
                         <div>
-                            <div class="panel p-15 item" ng-click="getList(step.name)">
+                            <div ng-class="{'panel p-15 item active-panel':step.name==activePanel,'panel p-15 item':step.name!==activePanel}" ng-click="getList(step.name)">
                                 <span class="badge badge-pill badge-count ml-2">{{step.count}}</span>
                                 <span class="text-muted text-xs badge-text">{{step.name}}</span>
                             </div>
@@ -123,38 +123,66 @@
                         </div>
                     </div>    -->
                 </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="col-md-3">
-                        <button class="btn btn-primary">PREVIOUS</button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn btn-info">NEXT</button>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-default" ng-click="editResident(true)">BACK</button>
-                    </div>
-                    <div class="panel panel-default">
+                <div class="col-md-4 col-sm-4 sidebar-panel">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button class="btn btn-primary">PREVIOUS</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-info">NEXT</button>
+                        </div>
+                        <div class="col-md-6 btn-wrapper">
+                            <button class="btn btn-default" ng-click="editResident(true)">BACK</button>
+                        </div>
+                    </div> 
+                    <div class="panel panel-default"> 
                         <div class="panel-heading">
                             <span class="h2">Nurse: Please Initial The Documentation As Performed</span>
                         </div>
+                        
                         <div class="panel-body row mt-10" ng-repeat="x in [].constructor(count) track by $index" >
-                            <div class="col-md-7 panel panel-default ml-10 mr-10">
-                                <div ng-repeat="signature in signatureList">
-                                    <h5 ng-class="{'completed-sign mb-50 text-center signature':signature.isCompleted,'mb-50 text-center pending-sign signature':!signature.isCompleted}" ng-click="open()">{{signature.name}}</h5>
-                                </div>
-                            </div>
-                            <div class="ml-10 col-md-4 panel panel-default">
-                                <div ng-repeat="otherSignature in otherSignatureList">
-                                    <h5 ng-class="{'completed-sign mb-50 text-center other-signature': otherSignature.isCompleted && !otherSignature.isNotApplicable, 'not-applicable-sign mb-50 text-center other-signature': !otherSignature.isCompleted && otherSignature.isNotApplicable, 'pending-sign mb-50 text-center other-signature': !otherSignature.isCompleted && !otherSignature.isNotApplicable}">{{otherSignature.name}}</h5>
+                            <div class="col-md-12 p-0">
+                                <div class="sidebar-box">
+                                    <div class="row"> 
+                                        <div class="col-md-8 pr-0">
+                                            <div class="inner-box"> 
+                                                <table>
+                                                    <tbody>
+                                                        <tr ng-repeat="signature in signatureList">
+                                                            <td>
+                                                                <div class="divSignature">
+                                                                    <h5 ng-if="signature.isCompleted" ng-class="{'done-sign text-center signature':signature.isCompleted,'text-center pending-sign signature':!signature.isCompleted}">{{signature.name}}</h5>
+                                                                    <h5 ng-if="!signature.isCompleted" ng-class="{'done-sign text-center signature':signature.isCompleted,'text-center pending-sign signature':!signature.isCompleted}" ng-click="open(signature.name,false)">{{signature.name}}</h5>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table> 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="inner-box"> 
+                                                <table>
+                                                    <tbody>
+                                                        <tr ng-repeat="otherSignature in otherSignatureList">
+                                                            <td>
+                                                               <div class="divSignature">
+                                                                    <h5 ng-class="{'done-sign text-center other-signature': otherSignature.isCompleted && !otherSignature.isNotApplicable, 'not-applicable-sign text-center other-signature': !otherSignature.isCompleted && otherSignature.isNotApplicable, 'pending-sign text-center other-signature': !otherSignature.isCompleted && !otherSignature.isNotApplicable}">{{otherSignature.name}}</h5>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table> 
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                   
-            </div>
-
-            </div>
+                    </div> 
+                </div> 
+            </div> 
+        </div>
     </div>
         
     </div>

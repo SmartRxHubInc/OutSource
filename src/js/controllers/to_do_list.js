@@ -1,21 +1,27 @@
 
 app.controller('ToDoListCtrl', ['$scope','$modal','ToDoSteps',
     function ($scope,$modal,ToDoSteps) {
-        $scope.open = function(){
+        $scope.open = function(title,isOtherSignature){
+            debugger
             $modal.open({
                     templateUrl: 'tpl/to_do_list/signature-modal.html',
                     keyboard:false,
+                    windowTopClass: "center-modal",
                     controller: function($scope, $modalInstance) {
+                        $scope.title=title
+                        $scope.isOtherSignature=isOtherSignature
                         $scope.cancel = function() {
-                                    $modalInstance.dismiss('cancel');
+                            $modalInstance.dismiss('cancel');
                          };
                          $scope.ok = function () {
-                                  $modalInstance.close();
+                            $modalInstance.close();
                          };
                      }
+                    
             });
         }
         $scope.count=0;
+        $scope.activePanel = ToDoSteps.step1
         $scope.steps = [
             {name: ToDoSteps.step1,count:"03"},
             {name: ToDoSteps.step2,count:"02"},
@@ -73,6 +79,7 @@ app.controller('ToDoListCtrl', ['$scope','$modal','ToDoSteps',
         $scope.getTempData = function (step) {
             debugger
             $scope.data =[];
+            $scope.activePanel = step
             var stepData = $scope.steps.filter(x=>{return x.name === step})[0];
             $scope.count = parseInt(stepData.count)
             for (let index = 0; index < parseInt(stepData.count); index++) {

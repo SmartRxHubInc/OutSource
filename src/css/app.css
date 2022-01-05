@@ -5358,16 +5358,123 @@ a.text-#000000:hover {
 .mr-10{
   margin-right:10px
 }
-.not-applicable{
-  color:red;
-  font-weight:700;
-}
-.pending-sign{
-  opacity: 0.3;
-}
-.completed-sign{
-  color:green
-}
+
 .signature:hover,.other-signature:hover{
   cursor: pointer;
+}
+/* .divSignature i{
+  padding: 0;
+  margin: 0;
+  float: right;
+} */
+.row.to-do-row {
+  display: flex;
+}
+.to-do-row .box .panel {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.sidebar-panel .panel-default {
+  border: none;
+  box-shadow: none !important;
+  background: transparent !important;
+} 
+.p-0{
+  padding: 0;
+}
+.pr-0{
+  padding-right: 0;
+}
+.sidebar-panel .panel-default .panel-heading span {
+  font-size: 19px;
+    margin-top: 30px;
+    display: inline-block;
+    margin-bottom: 40px;
+    text-align: center;
+}
+.sidebar-panel .panel-heading {
+  background: #f0f3f4;
+}
+.sidebar-panel .btn-info,.sidebar-panel .btn-primary,.btn-wrapper .btn-default {
+  background: #12375c;
+  border: 1px solid #12375c;
+  border-radius: 3px;
+  height: 30px;
+  line-height: 16px;
+  text-transform:capitalize;
+  color: #fff !important;
+}
+.sidebar-panel .btn-primary{
+  background: #4b7681;
+  border-color: #4b7681;
+}
+
+.sidebar-panel .sidebar-box{
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  padding: 15px;
+  border-radius: 10px;
+}
+/* .sidebar-panel .sidebar-box .row{
+  display: flex;
+    align-items: stretch; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: row; 
+} */
+.sidebar-panel .sidebar-box .inner-box h5{
+  margin: 0;
+}
+/* .sidebar-panel .sidebar-box .inner-box tr:not(:last-child) h5.signature{
+  margin: 0px 0 3px;
+}
+.sidebar-panel .sidebar-box .inner-box tr:not(:last-child) h5.other-signature{
+  margin: 0px 0 10px;
+} */
+.sidebar-panel .sidebar-box .inner-box h5.completed-sign{
+  background: #51d851;
+  color: #fff;
+  padding: 10px;
+}
+.sidebar-panel .sidebar-box .inner-box h5.done-sign{
+  background: #19bc1a;
+  color: #fff;
+  padding: 10px;
+}
+.sidebar-panel .sidebar-box .inner-box h5.pending-sign{
+  background: #e1e1e1;
+  padding: 10px;
+  color:#000
+}
+.sidebar-panel .sidebar-box .inner-box h5.not-applicable-sign{
+  padding: 10px;
+  background:#e96c43;
+  color: #fff;
+}
+.sidebar-panel .sidebar-box .inner-box table{
+  height: 100%;
+  width: 100%;
+  padding: 10px 0;
+}
+.sidebar-panel .sidebar-box .inner-box{
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  height: 100%; 
+  padding: 5px;
+  border-radius: 5px;
+
+}
+.btn-wrapper{
+  display: flex;
+  justify-content: flex-end;
+}
+.active-panel{
+  border-bottom:2px solid #b7bfc5;
+}
+.signature-canvas{
+  border:1px solid rgb(100, 96, 96); 
+  border-radius:5px;
+  height:100px;
+  width:100%
 }
