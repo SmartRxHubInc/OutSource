@@ -248,6 +248,8 @@ app.constant("APP_ACTION", {
   GET_INSTRUCTION_BY_PAPER_TYPE: "getInstructionByPaperType",
   GET_INSTRUCTION_BY_PAPER_TYPE_VERSION: "getInstructionByPaperTypeVersion",
   UPDATE_INSTRUCTION: "updateInstruction",
+  GET_TODO_LIST:"getTodoList",
+  GET_TODO_ORDER_DETAIL:"getTodoOrderDetail"
 });
 /*
  * Application Messages
@@ -282,11 +284,12 @@ app.constant("SPURL", "https://smartpaper.smartrxhub.com/api/index.php?");
 //app.constant('SPURL', 'https://smartpaper.smartrxhub.com/api/index.php?');
 
 app.constant("ToDoSteps", {
-  step1: "Perscriber's",
+  step1: "Doctor Sign Missing",
   step2: "Nurse 1 Sign",
   step3: "Nurse 2 Sign",
   step4: "Care Plan",
   step5: "Consent",
   step6: "Mar/Tar",
-  step7: "Lab",
+  step7: "Lab Order",
 });
+

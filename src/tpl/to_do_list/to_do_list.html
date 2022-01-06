@@ -8,36 +8,39 @@
                 <div class="box" ng-repeat="step in steps">
                     <a>
                         <div>
-                            <div ng-class="{'panel p-15 item active-panel':step.name==activePanel,'panel p-15 item':step.name!==activePanel}" ng-click="getList(step.name)">
-                                <span class="badge badge-pill badge-count ml-2">{{step.count}}</span>
-                                <span class="text-muted text-xs badge-text">{{step.name}}</span>
+                            <div ng-class="{'panel p-15 item active-panel':step.menu_name==activePanel,'panel p-15 item':step.menu_name!==activePanel}" ng-click="getPagedDataAsync(step.menu_code)">
+                                <span class="badge badge-pill badge-count ml-2">{{step.menu_counter}}</span>
+                                <span class="text-muted text-xs badge-text">{{step.menu_name}}</span>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="row" ng-if="isList">
-                <div class="panel wrapper m-10">
+           
+            <div class="row" ng-if="isList" cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+                <div class="panel wrapper m-10" style="min-height:420px">
                     <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                           <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Resident Name</th>
-                            <th scope="col">Unit</th>
-                            <th scope="col">Page No.</th>
-                            <th scope="col">Date & Time</th>
+                            <th scope="col">Unit name</th>
+                            <th scope="col">Page address</th>
+                            <th scope="col">Page info code.</th>
+                            <th scope="col">Print queue id</th>
+                            <th scope="col">Date added</th>
                             <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr ng-repeat="item in data">
                             <td>{{$index + 1}}</th>
-                            <td>{{item.residentName}}</td>
-                            <td>{{item.unit}}</td>
-                            <td>{{item.pageNo}}</td>
-                            <td>{{item.dateTime}}</td>
-                            <td class="edit-todo" ng-click="editResident(false)"><i class="fa fa-eye"></i></td>
+                            <td>{{item.unit_name}}</td>
+                            <td>{{item.page_address}}</td>
+                            <td>{{item.page_info_code}}</td>
+                            <td>{{item.print_queue_id}}</td>
+                            <td>{{convertStringToDate(item.dt_added)}}</td>
+                            <td class="edit-todo" ng-click="getOrderDetail(item.page_info_code,item.print_queue_id)"><i class="fa fa-eye"></i></td>
                           </tr>
                         </tbody>
                       </table>
@@ -144,15 +147,16 @@
                             <div class="col-md-12 p-0">
                                 <div class="sidebar-box">
                                     <div class="row"> 
-                                        <div class="col-md-8 pr-0">
+                                        <div class="col-md-7 pr-0">
                                             <div class="inner-box"> 
                                                 <table>
                                                     <tbody>
                                                         <tr ng-repeat="signature in signatureList">
                                                             <td>
                                                                 <div class="divSignature">
-                                                                    <h5 ng-if="signature.isCompleted" ng-class="{'done-sign text-center signature':signature.isCompleted,'text-center pending-sign signature':!signature.isCompleted}">{{signature.name}}</h5>
-                                                                    <h5 ng-if="!signature.isCompleted" ng-class="{'done-sign text-center signature':signature.isCompleted,'text-center pending-sign signature':!signature.isCompleted}" ng-click="open(signature.name,false)">{{signature.name}}</h5>
+                                                                    <h5 ng-if="signature.isCompleted" class="text-center">{{signature.name}}</h5>
+                                                                    <h5 ng-if="!signature.isCompleted" class="text-center" ng-click="open(signature.name,false)">{{signature.name}}</h5>
+                                                                    <i ng-class="{'done-sign text-center signature fa fa-check pull-right':signature.isCompleted,'text-center pending-sign signature fa fa-check pull-right':!signature.isCompleted}"
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -160,14 +164,15 @@
                                                 </table> 
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <div class="inner-box"> 
                                                 <table>
                                                     <tbody>
                                                         <tr ng-repeat="otherSignature in otherSignatureList">
-                                                            <td>
+                                                            <td class="tdSignature">
                                                                <div class="divSignature">
-                                                                    <h5 ng-class="{'done-sign text-center other-signature': otherSignature.isCompleted && !otherSignature.isNotApplicable, 'not-applicable-sign text-center other-signature': !otherSignature.isCompleted && otherSignature.isNotApplicable, 'pending-sign text-center other-signature': !otherSignature.isCompleted && !otherSignature.isNotApplicable}">{{otherSignature.name}}</h5>
+                                                                <i ng-class="{'done-sign text-center signature fa fa-check fa-1x pull-left':otherSignature.isCompleted && !otherSignature.isNotApplicable,'not-applicable-sign text-center signature fa fa-check fa-1x pull-left': !otherSignature.isCompleted && otherSignature.isNotApplicable, 'pending-sign text-center signature fa fa-check fa-1x pull-left': !otherSignature.isCompleted && !otherSignature.isNotApplicable}"></i>
+                                                                    <h5 class="text-center">{{otherSignature.name}}</h5>
                                                                 </div>
                                                             </td>
                                                         </tr>

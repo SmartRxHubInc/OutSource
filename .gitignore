@@ -49,3 +49,6 @@ Thumbs.db
 *.wmv
 
 /nbproject/private/
+
+visual studio files
+.vs

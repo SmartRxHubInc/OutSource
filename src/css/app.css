@@ -5386,6 +5386,15 @@ a.text-#000000:hover {
 .pr-0{
   padding-right: 0;
 }
+.pl-0{
+  padding-left: 0 !important;
+}
+.tdSignature .divSignature{
+  display: flex;
+}
+.tdSignature .divSignature i{
+  font-size:18px
+}
 .sidebar-panel .panel-default .panel-heading span {
   font-size: 19px;
     margin-top: 30px;
@@ -5417,22 +5426,39 @@ a.text-#000000:hover {
   padding: 15px;
   border-radius: 10px;
 }
-/* .sidebar-panel .sidebar-box .row{
-  display: flex;
+.sidebar-panel .sidebar-box .row{
+    display: flex;
     align-items: stretch; 
     flex-wrap: wrap;
     justify-content: space-between;
     flex-direction: row; 
-} */
-.sidebar-panel .sidebar-box .inner-box h5{
+}
+/* .sidebar-panel .sidebar-box .inner-box h5{
   margin: 0;
 }
-/* .sidebar-panel .sidebar-box .inner-box tr:not(:last-child) h5.signature{
-  margin: 0px 0 3px;
-}
-.sidebar-panel .sidebar-box .inner-box tr:not(:last-child) h5.other-signature{
-  margin: 0px 0 10px;
+.sidebar-panel .sidebar-box .inner-box tr h5{
+  margin: 10px 0 3px;
 } */
+.sidebar-panel .sidebar-box .inner-box tr h5{
+  margin: 10px 0 10px;
+}
+i.completed-sign{
+  background: #51d851;
+  color: #fff;
+  padding: 10px;
+}
+i.done-sign{
+  color: #19bc1a;
+  padding: 10px;
+}
+i.pending-sign{
+  color: #e1e1e1;
+  padding: 10px;
+}
+i.not-applicable-sign{
+  padding: 10px;
+  color:#e96c43;
+}
 .sidebar-panel .sidebar-box .inner-box h5.completed-sign{
   background: #51d851;
   color: #fff;

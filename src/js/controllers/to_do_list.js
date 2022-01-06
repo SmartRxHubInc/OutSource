@@ -1,6 +1,11 @@
 
-app.controller('ToDoListCtrl', ['$scope','$modal','ToDoSteps',
-    function ($scope,$modal,ToDoSteps) {
+app.controller('ToDoListCtrl', ['$scope','$modal','ToDoSteps', '$http', '$cookieStore', 'httpCall', 'APP_ACTION',
+    function ($scope,$modal,ToDoSteps, $http,$cookieStore, httpCall, APP_ACTION) {
+        debugger
+        const facility_code = $cookieStore.get('userData').facility_code
+        $scope.facility_code=facility_code === undefined?"":facility_code//$cookieStore.get('facility_code');
+        $scope.user_code=$cookieStore.get('userData').user_code;
+        $scope.epaper_menu_code = ToDoSteps.step1
         $scope.open = function(title,isOtherSignature){
             debugger
             $modal.open({
@@ -21,15 +26,22 @@ app.controller('ToDoListCtrl', ['$scope','$modal','ToDoSteps',
             });
         }
         $scope.count=0;
+        $scope.pageNo=1;
+        $scope.limit=20;
         $scope.activePanel = ToDoSteps.step1
+        $scope.convertStringToDate=function(currentDate){
+            const date = moment(new Date(currentDate)).format('DD/MM/YYYY')
+            const time = moment(new Date(currentDate)).format('HH:mm')
+            return date +" ,"+time
+        }
         $scope.steps = [
-            {name: ToDoSteps.step1,count:"03"},
-            {name: ToDoSteps.step2,count:"02"},
-            {name: ToDoSteps.step3,count:"03"},
-            {name: ToDoSteps.step4,count:"04"},
-            {name: ToDoSteps.step5,count:"01"},
-            {name: ToDoSteps.step6,count:"06"},
-            {name: ToDoSteps.step7,count:"02"}
+            {id:"1",menu_name: ToDoSteps.step1,menu_counter:"0",epaper_menu_code:""},
+            {id:"2",menu_name: ToDoSteps.step2,menu_counter:"0",epaper_menu_code:""},
+            {id:"3",menu_name: ToDoSteps.step3,menu_counter:"0",epaper_menu_code:""},
+            {id:"4",menu_name: ToDoSteps.step4,menu_counter:"0",epaper_menu_code:""},
+            {id:"5",menu_name: ToDoSteps.step5,menu_counter:"0",epaper_menu_code:""},
+            {id:"6",menu_name: ToDoSteps.step6,menu_counter:"0",epaper_menu_code:""},
+            {id:"7",menu_name: ToDoSteps.step7,menu_counter:"0",epaper_menu_code:""}
         ];
         $scope.signatureList=[
             {id:1,name:"Prescriber's Sign",isCompleted:true},
@@ -44,53 +56,47 @@ app.controller('ToDoListCtrl', ['$scope','$modal','ToDoSteps',
         ]
         $scope.data =[];
         $scope.isList = true;
-        $scope.getList = function (step) {
-            if(step === ToDoSteps.step1)
-            {
-                //call api for step1
-            }
-            else if(step === ToDoSteps.step2)
-            {
-                //call api for step2
-            }
-            else if(step === ToDoSteps.step3)
-            {
-                //call api for step3
-            }
-            else if(step === ToDoSteps.step4)
-            {
-                //call api for step4
-            }
-            else if(step === ToDoSteps.step5)
-            {
-                //call api for step5
-            }
-            else if(step === ToDoSteps.step6)
-            {
-                //call api for step6
-            }
-            else if(step === ToDoSteps.step7)
-            {
-                //call api for step7
-            }
-            $scope.getTempData(step)
-        }
-
-        $scope.getTempData = function (step) {
+        $scope.getPagedDataAsync = function(step) {
+            
+            var requestJSON = '{"facility_code":"'+$scope.facility_code+'","user_code":"'+$scope.user_code+'","epaper_menu_code":"'+step+'","page":"'+$scope.pageNo+'","limit":"'+$scope.limit+'","search_text":""}';
+            httpCall.remoteCall($scope, $http, APP_ACTION.GET_TODO_LIST, requestJSON, function(record) {
+                console.log(record.responseData);
+                record.responseData.menuCouterData.map((x)=>{
+                    const index = $scope.steps.findIndex(a=>a.menu_name === x.menu_name);
+                    $scope.steps[index].menu_code = x.epaper_menu_code
+                    $scope.steps[index].id = x.id
+                    $scope.steps[index].menu_counter = parseInt(x.menu_counter) <=9?"0"+x.menu_counter:x.menu_counter
+                })
+                $scope.data = record.responseData.todoData
+                const index = $scope.steps.findIndex(a=>a.menu_code === step);
+                $scope.activePanel = $scope.steps[index].menu_name
+            }, function(message) {
+            });
+        };
+        $scope.getOrderDetail=function(page_info_code,print_queue_id){
             debugger
-            $scope.data =[];
-            $scope.activePanel = step
-            var stepData = $scope.steps.filter(x=>{return x.name === step})[0];
-            $scope.count = parseInt(stepData.count)
-            for (let index = 0; index < parseInt(stepData.count); index++) {
-                const element = {residentName : "Resident Name " + index.toString(),unit:"Ward " + index.toString(),pageNo:"Page No " + index.toString() ,dateTime:"31/12/2021, 04:40"};
-                $scope.data.push(element);
-            }
+            const index = $scope.steps.findIndex(a=>a.menu_name === $scope.activePanel);
+            const epaper_menu_code=$scope.steps[index].menu_code
+            //var requestJSON = '{"facility_code":"'+$scope.facility_code+'","user_code":"'+$scope.user_code+'","page_info_code":"'+page_info_code+'","print_queue_id":"'+print_queue_id+'","epaper_menu_code":"'+epaper_menu_code+'","start_dt":"","end_dt":"","search_text":""}';
+            var requestJSON='{"facility_code":"NH20170220094948344954","page_info_code":"PGI2021120904420494434","print_queue_id":"22810","epaper_menu_code":"NURSE_2","user_code":"PHUCOM20151219120733156780","start_dt":"","end_dt":"","search_text":""}'
+            httpCall.remoteCall($scope, $http, APP_ACTION.GET_TODO_ORDER_DETAIL, requestJSON, function(record) {
+                debugger
+                console.log(record.responseData);
+                $scope.isList = false
+                // record.responseData.menuCouterData.map((x)=>{
+                //     const index = $scope.steps.findIndex(a=>a.menu_name === x.menu_name);
+                //     $scope.steps[index].menu_code = x.epaper_menu_code
+                //     $scope.steps[index].id = x.id
+                //     $scope.steps[index].menu_counter = parseInt(x.menu_counter) <=9?"0"+x.menu_counter:x.menu_counter
+                // })
+                // $scope.data = record.responseData.todoData
+                // const index = $scope.steps.findIndex(a=>a.menu_code === step);
+                // $scope.activePanel = $scope.steps[index].menu_name
+            }, function(message) {
+            });
         }
-        
-
         $scope.initialization = function () {
-            $scope.getTempData(ToDoSteps.step1)
+            $scope.getPagedDataAsync("DOCTOR_SIG_MISSING")
         }
         $scope.editResident = function (isList) {
             $scope.isList = isList;

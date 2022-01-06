@@ -61,7 +61,9 @@ app.controller('RxDashboardCtrl', ['$scope', '$timeout', '$http', '$cookieStore'
             });
         };
         $scope.getFacility = function () {
+            debugger
             httpCall.remoteCall('', $http, APP_ACTION.GET_DRP_FACILITY_BY_STORE, '{"store_code":"' + $scope.store_code + '","user_code":"' + $cookieStore.get('userData').user_code + '"}', function (record) {
+                debugger
                 $scope.facilities = record.responseData.companiesData;
             }, function (message) {
                 $scope.facilities = "";
@@ -121,7 +123,7 @@ app.controller('RxDashboardCtrl', ['$scope', '$timeout', '$http', '$cookieStore'
                 $scope.printPagePIChart = {"data": printPagePIChartData, "options": {}};
 
 //                $scope.printNewPageChart = {"data": printNewPageChartData, "options": {}};
-
+                debugger
                 if (record.responseData.storesData.length > 0) {
                     $scope.stores = record.responseData.storesData;
                     if ($scope.store_code != null && $scope.store_code != "") {
