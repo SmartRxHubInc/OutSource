@@ -1,0 +1,54 @@
+<div class="wrapper-md" ng-controller="FormPageSettingCtrl">
+    <div cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+        <form name="form" class="form-validation">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="h4">{{formname}}</span>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label label-right">Store<span class="reqire-field-color" >*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-control" ng-model="page.store_code" ng-selected="page.store_code" ng-change="getPageStoreData();" ng-options="i.store_code as i.store_name for i in stores" required><option value="">All Stores</option></select>
+                        </div>
+                    </div>
+                    <div class="line line-dashed pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label label-right">Home<span class="reqire-field-color" >*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-control" ng-model="page.facility_code" ng-selected="page.facility_code" ng-change="getPageFacilityData();" ng-options="i.facility_code as i.facility_name for i in facilities" required><option value="">All Homes</option></select>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label label-right" >Unit<span class="reqire-field-color" >*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-control" ng-model="page.unit_code" ng-selected="page.unit_code" ng-change="getPageUnitData();" ng-options="i.unit_code as i.unit_name for i in unites" required><option value="">All Units</option></select>
+                        </div>
+                    </div>
+                    <div class="line line-dashed pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label label-right" >Form Type<span class="reqire-field-color" >*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-control" ng-model="page.paper_type_code" ng-selected="page.paper_type_code" ng-change="getPaperPageData()" ng-options="i.paper_type_code as i.paper_type for i in papers" required>
+                                <option value="">Select Form Type</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="line line-dashed pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label label-right">Page Address<span class="reqire-field-color" >*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control"  ng-model="page.page_address" ng-pattern="/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/" placeholder="xxx.xxx.xxx.xxx" placeholder="IP Address" required>
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer text-right bg-light lter">
+                    <button type="submit" class="btn btn-success" ng-click="addDefaultPageWithPageAddress()" ng-disabled="form.$invalid">Submit</button>
+                </footer>
+            </div>
+        </form>
+
+    </div>
+</div>

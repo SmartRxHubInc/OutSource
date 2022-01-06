@@ -138,6 +138,25 @@ angular
                             },
                         })
               
+                        .state("app.table.viewer", {
+                            url: "/viewer",
+                            templateUrl: "tpl/page/table_pageviewer.html",
+                            resolve: {
+                                deps: [
+                                    "$ocLazyLoad",
+                                    function ($ocLazyLoad) {
+                                        return $ocLazyLoad
+                                                .load("ngGrid")
+                                                .then(function () {
+                                                    return $ocLazyLoad.load("js/controllers/pageviewer.js");
+                                                })
+                                                .then(function () {
+                                                    return $ocLazyLoad.load("ui.select");
+                                                });
+                                    },
+                                ],
+                            },
+                        })
                         .state("app.table.formpatientorder", {
                             url: "/formpatientorder",
                             templateUrl: "tpl/Order/form_patientorder.html",
