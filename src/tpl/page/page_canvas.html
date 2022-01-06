@@ -1,0 +1,28 @@
+<div ng-controller="CanvasCtrl">
+
+    <div style="float: right; margin-top: 15px;margin-right: 10px;">
+        <a ui-sref="app.table.viewer" class="btn btn-success">Back</a>
+        <button type="submit" class="btn btn-success" ng-click="reprintData()" >Reprint</button>    
+        <button type="submit" class="btn btn-primary" ng-click="printCanvas()"><i class="fa fa-print"></i> Print</button>
+
+    </div>
+    <div class="bg-light lter b-b wrapper-md">
+        <h1 class="m-n font-thin h3">Page Information</h1>
+    </div>
+    <div class="wrapper text-center" >
+        <div class="col-md-4"><pre class="alert alert-info"><b>Last Uploaded Page </b> <br/><em>{{dateInfo.dt_last_used}}</em></pre></div>  
+<!--        <div class="col-md-4"><pre class="alert alert-info"><b>Last Upload Page </b> <br/><em>{{dateInfo.dt_last_used}}</em></pre></div>  -->
+        <div class="col-md-4"><pre class="alert alert-info"><b>Last Print Page </b><br/><em>{{dateInfo.dt_print}}</em></pre></div>  
+        <div class="col-md-4"><pre class="alert alert-info"><b>Last Dock Pen </b><br/><em>{{dateInfo.pen_datasync_dt}}</em></pre></div>  
+        <div cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+            <!--<canvas id="canvas" class="rorate" style="border: 1px gray solid; float: left;background: #FFFFFF url({{bg_file}}) no-repeat;width: 720px;height: 930px;"><div></div></canvas>-->
+            <!--<canvas id="canvas" class="rorate" style="border: 1px gray solid; float: left; background: #FFFFFF url({{bg_file}}) no-repeat;width: 720px;height: 930px;">-->
+<!--            <div class="bg-light lter">
+                <i class="glyphicon glyphicon-eye-open text-info-dker celltemplate" ng-click="previous()" tooltip="Previous" tooltip-append-to-body="true" tooltip-trigger:"focus"></i>
+                <i class="glyphicon glyphicon-eye-open text-info-dker celltemplate" ng-click="next()" tooltip="Next" tooltip-append-to-body="true" tooltip-trigger:"focus"></i>
+            </div>-->
+            <canvas id="canvas" class="rorate" style="border: 1px gray solid; float: left;">
+            </canvas>
+        </div>
+    </div>
+</div>

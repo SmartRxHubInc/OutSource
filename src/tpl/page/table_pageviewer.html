@@ -1,0 +1,324 @@
+<div ng-controller="PageViewerCtrl" ng-show="app.canvas == 0">
+  <div class="bg-light lter b-b wrapper-md">
+    <div class="row">
+      <div class="col-sm-2 col-xs-12">
+        <h1 class="m-n font-thin h3 text-black">Viewer</h1>
+        <!--                <h1 class="m-n font-thin h3 text-black">Page Information</h1>-->
+      </div>
+      <div class="row col-sm-10 text-right hidden-xs pull-right">
+        <div
+          class="col-sm-3"
+          ng-show="app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT'"
+        >
+          <select
+            class="form-control"
+            ng-model="store_code"
+            ng-selected="store_code"
+            ng-change="getStorePageData()"
+            ng-options="i.store_code as i.store_name for i in stores"
+          >
+            <option value="">All Stores</option>
+          </select>
+        </div>
+        <div
+          ng-class="{'col-sm-3':app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT','col-sm-4':app.loginUserType == '1'}"
+          ng-show="app.loginRoleType == 'PH'"
+        >
+          <select
+            ng-model="facility_code"
+            ng-selected="facility_code"
+            ng-change="getFacilityPageData()"
+            ng-options="i.facility_code as i.facility_name for i in facilities"
+            class="form-control"
+          >
+            <option value="">All Homes</option>
+          </select>
+        </div>
+
+        <div
+          ng-class="{'col-sm-3':app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT','col-sm-4':app.loginUserType == '1','col-sm-6':app.loginRoleType == 'NH'}"
+        >
+          <select
+            class="form-control"
+            ng-model="unit_code"
+            ng-selected="unit_code"
+            ng-change="getUnitPageData()"
+            ng-options="i.unit_code as i.unit_name for i in units"
+          >
+            <option value="">All Units</option>
+          </select>
+        </div>
+        <div
+          ng-class="{'col-sm-3':app.loginRoleCode == 'PHADM' || app.loginRoleCode == 'SCNBT' || app.loginRoleCode == 'SCTT','col-sm-4':app.loginUserType == '1','col-sm-6':app.loginRoleType == 'NH'}"
+        >
+          <select
+            class="form-control"
+            ng-model="paper_type_code"
+            ng-selected="paper_type_code"
+            ng-change="getPaperPageData()"
+            ng-options="i.paper_type_code as i.paper_type for i in papers"
+          >
+            <option value="">All Form Types</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper-md">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="pull-left" style="top: 5px">Viewer</div>
+        <!--                <div class="pull-left" style="top:5px;">Page Information</div>-->
+        <!--<div class="col-sm-4" my-date-picker my-date-picker-model="startDate"></div>-->
+        <div class="col-sm-4">
+          <p class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              ng-readonly="true"
+              placeholder="Select From Date"
+              datepicker-popup="{{format}}"
+              ng-model="startDate"
+              is-open="startDateOpened"
+              datepicker-options="dateOptions"
+              ng-required="true"
+              close-text="Close"
+              max-date="dtmax"
+            />
+            <span class="input-group-btn">
+              <button
+                type="button"
+                style="height: 30px"
+                class="btn btn-default"
+                ng-click="startDateOpen($event)"
+              >
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </p>
+          <!--                    <p class="input-group">
+                                            <input type="text" class="form-control"  datetime-picker="yyyy-MM-dd HH:mm" ng-model="startDate" is-open="startDateOpened" />
+                                            <span class="input-group-btn">
+                                                <button type="button" style="height:30px;" class="btn btn-default" ng-click="startDateOpen($event)"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </p>-->
+        </div>
+        <!--<div class="col-sm-4" my-date-picker my-date-picker-model="endDate"></div>-->
+        <div class="col-sm-4">
+          <p class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              ng-readonly="true"
+              placeholder="Select To Date"
+              datepicker-popup="{{format}}"
+              ng-model="endDate"
+              is-open="endDateOpened"
+              datepicker-options="dateOptions"
+              ng-required="true"
+              close-text="Close"
+              min-date="startDate"
+              max-date="dtmax"
+            />
+            <span class="input-group-btn">
+              <button
+                type="button"
+                style="height: 30px"
+                class="btn btn-default"
+                ng-click="endDateOpen($event)"
+              >
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </p>
+          <!--                    <p class="input-group">
+                                            <input type="text" class="form-control"  datetime-picker="yyyy-MM-dd HH:mm" ng-model="endDate" is-open="endDateOpened" />
+                                            <span class="input-group-btn">
+                                                <button type="button" style="height:30px;" class="btn btn-default" ng-click="endDateOpen($event)"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </p>-->
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="search()">
+          <i class="fa fa-search"></i>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="searchClear()">
+          <i
+            class="glyphicon glyphicon-remove"
+            tooltip="Clear Filter"
+            tooltip-append-to-body="true"
+          ></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-default btn-success pull-right"
+          ng-click="searchClear()"
+        >
+          <i
+            class="glyphicon glyphicon-refresh"
+            tooltip="Refresh List"
+            tooltip-append-to-body="true"
+          ></i>
+        </button>
+      </div>
+      <div class="table-responsive">
+        <!--                <div class="input-group">
+                                    <input type="text" name="searchText" ng-model="filterOptions.filterText" class="form-control" placeholder="Search By Order Page# or Resident name." />
+                                    <span class="input-group-addon glyphicon glyphicon-search" style="top: 0;"></span>
+                                </div>-->
+        <form>
+          <div class="input-group">
+            <input
+              type="text"
+              name="searchText"
+              ng-model="filterOptions.filterText"
+              class="form-control"
+              placeholder="Search by Resident Name or Page #"
+            />
+            <span class="input-group-btn">
+              <button
+                ng-click="searchViewer()"
+                id="searchButton"
+                style="padding-bottom: 2px"
+                type="submit"
+                class="btn btn-success"
+                tooltip="Search Viewer"
+                tooltip-append-to-body="true"
+              >
+                <i class="glyphicon glyphicon-search"></i> Search
+              </button>
+              <!-- <span class="input-group-addon glyphicon glyphicon-search" style="top: 0;"></span>-->
+              <button
+                type="button"
+                class="btn btn-default"
+                ng-click="viewerSearchClear()"
+                style="padding-bottom: 2px"
+              >
+                <i
+                  class="glyphicon glyphicon-remove"
+                  tooltip="Clear Search"
+                  tooltip-append-to-body="true"
+                ></i>
+              </button>
+            </span>
+          </div>
+        </form>
+        <div
+          cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}"
+        >
+          <div ng-grid="gridOptions" style="min-height: 420px"></div>
+        </div>
+        <div class="col-md-12 nodatafound" ng-show="myData.length == 0">
+          <div class="col-md-12">
+            <h4>No data found</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div ng-controller="CanvasCtrl" ng-if="app.canvas == 1">
+  <div style="float: right; margin-top: 15px; margin-right: 10px">
+    <a ng-click="backViewer()" class="btn btn-success">Back</a>
+    <button type="submit" class="btn btn-success" ng-click="reprintData()">
+      Reprint
+    </button>
+    <!--<button type="submit" class="btn btn-primary" ng-click="printMail()"><i class="fa fa-print"></i> E-Fax</button>-->
+    <button type="submit" class="btn btn-primary" ng-click="printCanvas()">
+      <i class="fa fa-print"></i> Print
+    </button>
+  </div>
+  <div class="bg-light lter b-b wrapper-md">
+    <span class="m-n font-thin h3">Viewer</span>
+    <!--<span class="m-n font-thin h3">Page Information</span>-->
+  </div>
+
+  <div class="wrapper text-center">
+    <div
+      cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}"
+    >
+      <!--<div class="col-md-1"><i class="fa  fa-chevron-left text-info-dker pull-left" style="margin-top: 10%;font-size: 65px;" ng-click="previous()" tooltip="Previous" tooltip-append-to-body="true" tooltip-trigger="focus"></i></div>-->
+      <div
+        class="col-md-1 col-sm-1"
+        style="text-align: right; padding-right: 52px"
+      >
+        <div
+          id="canvaPrevious"
+          class="fa fa-chevron-left text-info-dker canvaPreviousViewer"
+          ng-click="previous()"
+          tooltip="Previous"
+          tooltip-append-to-body="true"
+          tooltip-trigger="focus"
+        ></div>
+      </div>
+      <div class="col-md-9 col-sm-9">
+        <pre
+          class="alert alert-info"
+        ><span class="m-n font-thin h4" style="float: left;text-align: left;"><b>{{dateInfo.facility_name}} / {{dateInfo.unit_name}}</b><br/><em>Page#: {{dateInfo.page_address}}</em><br/><em>Pen#: {{dateInfo.pen_code}}</em><br/><em>Machine IP: {{dateInfo.machine_ip}}</em></span><span style="float:right;text-align: right;"><em ng-show="dateInfo.book_id" >Form#:{{dateInfo.book_id}}</em><br ng-show="dateInfo.book_id" />Record#:{{app.selectedIndex + 1}}<br /><em>Received Time:{{dateInfo.dt_received}}</em><br /><em>Print Time:{{dateInfo.dt_print}}</em></span></pre>
+      </div>
+      <div class="col-md-1 col-sm-1" style="text-align: left">
+        <div
+          id="canvaNext"
+          class="fa fa-chevron-right text-info-dker pull-left canvaNextViewer"
+          ng-click="next()"
+          tooltip="Next"
+          tooltip-append-to-body="true"
+          tooltip-trigger="focus"
+        ></div>
+      </div>
+      <!--<div class="col-md-1"><i class="fa fa-chevron-right text-info-dker pull-right" style="margin-top: 10%;font-size: 65px;" ng-click="next()" tooltip="Next" tooltip-append-to-body="true" tooltip-trigger="focus"></i></div>-->
+      <!--        <div class="col-md-4"><pre class="alert alert-info"><b>Last Upload Page </b> <br/><em>{{dateInfo.dt_last_used}}</em></pre></div>  
+                    <div class="col-md-4"><pre class="alert alert-info"><b>Last Print Page </b><br/><em>{{dateInfo.dt_print}}</em></pre></div>  
+                    <div class="col-md-4"><pre class="alert alert-info"><b>Last Dock Pen </b><br/><em>{{dateInfo.pen_datasync_dt}}</em></pre></div>  -->
+      <!--<div class="page">-->
+      {{loading}}
+      <!--</div>-->
+      <canvas
+        id="canvas"
+        class="rorate"
+        style="border: 1px gray solid"
+      ></canvas>
+    </div>
+  </div>
+
+  <script type="text/ng-template" id="storeEFax">
+    <form name="form" class="form-validation">
+    <div class="panel-heading">
+    <span class="h4">E-Fax</span>
+    </div>
+    <div class="panel-body">
+
+    <div class="form-group">
+    <label class="col-sm-3 control-label">Store Email<span class="reqire-field-color">*</span></label>
+    <div class="col-sm-9">
+
+
+    <ui-select multiple ng-model="efax.store_email" theme="bootstrap" ng-disabled="disabled">
+    <ui-select-match placeholder="Select Store Email">{{$item.store_name}} &lt;{{$item.store_email}}&gt;</ui-select-match>
+    <ui-select-choices group-by="someGroupFn" repeat="person in people | propsFilter: {store_name: $select.search}">
+    <div ng-bind-html="person.store_name | highlight: $select.search"></div>
+    <small>
+    email: {{person.store_email}}
+    </small>
+    </ui-select-choices>
+    </ui-select>
+
+
+    </div>
+    <!--<div class="line line-dashed pull-in"></div>
+    <div class="form-group">
+    <label class="col-sm-3 control-label">Fax Number<span class="reqire-field-color">*</span></label>
+    <div class="col-sm-9">
+    <input type="text" class="form-control"  ng-model="efax.fax_number" required>
+    </div>
+
+    </div>
+    </div>-->
+    <div class="line line-dashed pull-in"></div>
+    <footer class="panel-footer text-right bg-light">
+    <button type="submit" class="btn btn-success" ng-click="submitEfax()" ng-disabled="form.$invalid">Submit</button>
+    </footer>
+
+    </form>
+  </script>
+</div>
