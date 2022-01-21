@@ -1,14 +1,18 @@
-<div ng-controller="ToDoListCtrl" class="to-do-list">
+<div ng-controller="ToDoListCtrl" class="to-do-list" >
     <div class="bg-light lter b-b wrapper-md">
         <h1 class="m-n font-thin h3">To do List</h1>
     </div>
     <div>
         <div class="wrapper-md" >
-            <div class="row to-do-row">
+            <div class="to-do-row">
                 <div class="box" ng-repeat="step in steps">
                     <a>
                         <div>
-                            <div ng-class="{'panel p-15 item active-panel':step.menu_name==activePanel,'panel p-15 item':step.menu_name!==activePanel}" ng-click="getPagedDataAsync(step.menu_code)">
+                            <div ng-if="isList" ng-class="{'panel p-15 item active-panel':step.menu_name==activePanel,'panel p-15 item':step.menu_name!==activePanel}" ng-click="getPagedDataAsync(step.epaper_menu_code)">
+                                <span class="badge badge-pill badge-count ml-2">{{step.menu_counter}}</span>
+                                <span class="text-muted text-xs badge-text">{{step.menu_name}}</span>
+                            </div>
+                            <div ng-if="!isList" ng-class="{'panel p-15 item active-panel':step.menu_name==activePanel,'panel p-15 item':step.menu_name!==activePanel}">
                                 <span class="badge badge-pill badge-count ml-2">{{step.menu_counter}}</span>
                                 <span class="text-muted text-xs badge-text">{{step.menu_name}}</span>
                             </div>
@@ -17,8 +21,8 @@
                 </div>
             </div>
            
-            <div class="row" ng-if="isList" cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
-                <div class="panel wrapper m-10" style="min-height:420px">
+            <div class="row" ng-show="isList" cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}" >
+                <div class="panel wrapper m-15" style="min-height:420px">
                     <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -29,7 +33,7 @@
                             <th scope="col">Page info code.</th>
                             <th scope="col">Print queue id</th>
                             <th scope="col">Date added</th>
-                            <th scope="col"></th>
+                            <th scope="col">Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -40,156 +44,95 @@
                             <td>{{item.page_info_code}}</td>
                             <td>{{item.print_queue_id}}</td>
                             <td>{{convertStringToDate(item.dt_added)}}</td>
-                            <td class="edit-todo" ng-click="getOrderDetail(item.page_info_code,item.print_queue_id)"><i class="fa fa-eye"></i></td>
+                            <td class="edit-todo" ng-click="getOrderDetail(item.page_info_code,item.print_queue_id)"><i tooltip="View Data" tooltip-append-to-body="true" tooltip-trigger:"focus" class="fa fa-eye"></i></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                 </div>
             </div>
-            <div class="panel-body row" ng-if="!isList">
-                <div class="col-md-8 col-sm-8 panel panel-default">
-                    <h2 class="text-center">DIGITAL PRESCRIBER'S ORDERS </h2>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label class="col-sm-2 control-label label-right">Facility:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Facility" value="">
+            <div class="panel-body row p-10" ng-show="!isList" cg-busy="{promise:promise,templateUrl:Standard,message:message,backdrop:backdrop,delay:delay,minDuration:minDuration}">
+               
+                    <div class="col-lg-8 col-md-6 col-sm-8 panel panel-default canvas-parent-div"> 
+                            <canvas
+                            id="canvas"
+                            class="rorate"
+                          ></canvas> 
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-4 sidebar-panel">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-6 col-md-3 btn-first">
+                                <button ng-if="prev_id.length === 0" class="btn btn-primary disabled">Previous</button>
+                                <button ng-if="prev_id.length > 0" class="btn btn-primary" ng-click="getOrderDetail(prev_id[0].page_info_code,prev_id[0].print_queue_id)">Previous</button>  
+                                
                             </div>
-                            <div class="line line-dashed pull-in"></div>
-                        </div>
-                        
-                        <div class="col-sm-6">
-                            <label class="col-sm-2 control-label label-right">Unit:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Unit" value="">
+                            <div class="col-xs-4 col-sm-6 col-md-3 btn-second">
+                                <button ng-if="next_id.length === 0" class="btn btn-info disabled">Next</button>
+                                <button ng-if="next_id.length > 0" class="btn btn-info" ng-click="getOrderDetail(next_id[0].page_info_code,next_id[0].print_queue_id)">Next</button>  
                             </div>
-                            <div class="line line-dashed pull-in"></div>
-                        </div>
-                        
-                        <div class="col-sm-6">
-                            <label class="col-sm-2 control-label label-right">Resident:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Resident" value="">
+                            <div class="col-xs-4 col-sm-12 col-md-6 btn-wrapper btn-third">
+                                <button class="btn btn-default" ng-click="editToDo(false)">Back</button>
                             </div>
-                            <div class="line line-dashed pull-in"></div>
-                        </div>
-                        
-                        <div class="col-sm-6">
-                            <label class="col-sm-2 control-label label-right">Room:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Room" value="30">
+                        </div> 
+                        <div class="panel panel-default"> 
+                            <div class="panel-heading">
+                                <span class="h2">Nurse: Please Initial The Documentation As Performed</span>
                             </div>
-                            <div class="line line-dashed pull-in"></div>
-                        </div>
-                        
-                        <div class="col-sm-6">
-                            <label class="col-sm-2 control-label label-right">Health Card#:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Health Card#" value="90808900">
-                            </div>
-                            <div class="line line-dashed pull-in"></div>
-                        </div>
-                        
-                        <div class="col-sm-6">
-                            <label class="col-sm-4 control-label label-right">DOB(dd/mm/yyyy):</label>
-                            <div class="col-sm-8">
-                                <input type="date" class="form-control" placeholder="Health Card#" value="02/01/1960">
-                            </div>
-                            <div class="line line-dashed pull-in"></div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <label class="col-sm-4 h4 control-label label-right">PROGRESS NOTES:</label>
-                            </div>
-                            <div class="row" ng-repeat="x in [].constructor(count) track by $index">
-                                <div class="col-md-4 table-bordered">
-                                    <label class="control-label label-left col-md-6">Date:</label>
-                                    <label class="control-label label-right col-md-6">Time:</label>
-                                </div>
-                                <div class="col-md-4 table-bordered">
-                                    <label class="control-label label-left col-md-6">Date:</label>
-                                    <label class="control-label label-right col-md-6">Time:</label>
-                                </div>
-                                <div class="col-md-4 table-bordered">
-                                    <label class="control-label label-left col-md-6">Date:</label>
-                                    <label class="control-label label-right col-md-6">Time:</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div> 
-                    <!-- <div class="form-group">
-                        <label class="col-sm-3 control-label label-right">Name<span class="reqire-field-color">*</span></label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" ng-model="user.store_name" placeholder="Store Name" required>
-                        </div>
-                    </div>    -->
-                </div>
-                <div class="col-md-4 col-sm-4 sidebar-panel">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <button class="btn btn-primary">PREVIOUS</button>
-                        </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-info">NEXT</button>
-                        </div>
-                        <div class="col-md-6 btn-wrapper">
-                            <button class="btn btn-default" ng-click="editResident(true)">BACK</button>
-                        </div>
-                    </div> 
-                    <div class="panel panel-default"> 
-                        <div class="panel-heading">
-                            <span class="h2">Nurse: Please Initial The Documentation As Performed</span>
-                        </div>
-                        
-                        <div class="panel-body row mt-10" ng-repeat="x in [].constructor(count) track by $index" >
-                            <div class="col-md-12 p-0">
-                                <div class="sidebar-box">
-                                    <div class="row"> 
-                                        <div class="col-md-7 pr-0">
-                                            <div class="inner-box"> 
-                                                <table>
-                                                    <tbody>
-                                                        <tr ng-repeat="signature in signatureList">
-                                                            <td>
-                                                                <div class="divSignature">
-                                                                    <h5 ng-if="signature.isCompleted" class="text-center">{{signature.name}}</h5>
-                                                                    <h5 ng-if="!signature.isCompleted" class="text-center" ng-click="open(signature.name,false)">{{signature.name}}</h5>
-                                                                    <i ng-class="{'done-sign text-center signature fa fa-check pull-right':signature.isCompleted,'text-center pending-sign signature fa fa-check pull-right':!signature.isCompleted}"
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table> 
+                            
+                            <div ng-repeat="x in mainSignatureListArray track by $index">
+                                <div class="col-md-12 p-0 p-b-5">
+                                    <div class="sidebar-box">
+                                        <div class="row"> 
+                                            <div class="col-xs-7 col-sm-12 col-md-7 pr-0">
+                                                <div class="inner-box"> 
+                                                    <table>
+                                                        <tbody>
+                                                            <tr ng-repeat="signature in x.type_two_signature track by $index">
+                                                                <td>
+                                                                    <div class="divSignature">
+                                                                        <h5 ng-if="signature.isCompleted" class="text-center">{{signature.name}}</h5>
+                                                                        <h5 ng-if="!signature.isCompleted" ng-class="{'text-center not-allowed':signature.isDisabled,'text-center':!signature.isDisabled}" ng-click="open(2,signature.paper_area_name,signature.key,signature.name,false,trackByIndex(x),$index)">{{signature.name}}</h5>
+                                                                        <i ng-class="{'done-sign text-center signature fa fa-check pull-right':signature.isCompleted,'text-center pending-sign signature fa fa-check pull-right':!signature.isCompleted}"></i>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table> 
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="inner-box"> 
-                                                <table>
-                                                    <tbody>
-                                                        <tr ng-repeat="otherSignature in otherSignatureList">
-                                                            <td class="tdSignature">
-                                                               <div class="divSignature">
-                                                                <i ng-class="{'done-sign text-center signature fa fa-check fa-1x pull-left':otherSignature.isCompleted && !otherSignature.isNotApplicable,'not-applicable-sign text-center signature fa fa-check fa-1x pull-left': !otherSignature.isCompleted && otherSignature.isNotApplicable, 'pending-sign text-center signature fa fa-check fa-1x pull-left': !otherSignature.isCompleted && !otherSignature.isNotApplicable}"></i>
-                                                                    <h5 class="text-center">{{otherSignature.name}}</h5>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table> 
+                                            <div class="col-xs-5 col-sm-12 col-md-5">
+                                                <div class="inner-box"> 
+                                                    <table>
+                                                        <tbody>
+                                                            <tr ng-repeat="otherSignature in x.type_one_signature track by $index">
+                                                                <td class="tdSignature">
+                                                                   <div class="divSignature">
+                                                                    
+                                                                    <i ng-class="{'done-sign text-center signature fa fa-check fa-1x pull-left':otherSignature.isCompleted && !otherSignature.isNotApplicable,'not-applicable-sign text-center signature fa fa-check fa-1x pull-left': !otherSignature.isCompleted && otherSignature.isNotApplicable, 'pending-sign text-center signature fa fa-check fa-1x pull-left': !otherSignature.isCompleted && !otherSignature.isNotApplicable}"></i>
+                                                                    <h5 ng-if="(otherSignature.isCompleted && !otherSignature.isNotApplicable) ||(!otherSignature.isCompleted && otherSignature.isNotApplicable)" ng-class="{'text-center not-allowed':otherSignature.isDisabled,'text-center':!otherSignature.isDisabled}">{{otherSignature.name}}</h5>
+                                                                    <h5 ng-if="!otherSignature.isCompleted && !otherSignature.isNotApplicable" ng-click="open(1,otherSignature.paper_area_name,otherSignature.key,otherSignature.name,true,trackByIndex(x),$index)" ng-class="{'text-center not-allowed':otherSignature.isDisabled,'text-center':!otherSignature.isDisabled}">{{otherSignature.name}}</h5>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table> 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-12 col-xs-12 text-center" ng-if="mainSignatureListArray.length > 0">
+                                <button class="btn btn-info" ng-click="postData()">
+                                    Submit
+                                </button>
+                            </div>
+                        </div> 
                     </div> 
-                </div> 
+                </div>
+                
             </div> 
         </div>
-    </div>
-        
     </div>
     
 </div>

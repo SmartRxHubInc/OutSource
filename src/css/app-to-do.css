@@ -1,0 +1,303 @@
+.to-do-list .p-15 {
+  padding: 15px;
+}
+.p-10 {
+  padding: 10px !important;
+}
+.to-do-list .box {
+  width: 13%;
+  margin-right: 20px;
+  min-width: 100px;
+}
+
+.to-do-list .badge {
+  background-color: #12375c !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10px;
+  padding: 8px 8px;
+  font-size: 16px;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #777;
+  border-radius: 20px;
+}
+
+.to-do-list .badge-text {
+  color: #12375c;
+  font-weight: bold;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.to-do-list .badge-count {
+  color: #fff;
+}
+
+.m-10 {
+  margin: 10px;
+}
+.m-15 {
+  margin: 15px;
+}
+
+.to-do-list .table > tbody > tr > td,
+.table > thead > tr > th {
+  padding: 15px 15px !important;
+  border-top: 1px solid #ddd !important;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.to-do-list .table > thead > tr > th {
+  color: #ef8c06 !important;
+}
+.to-do-list .table > tbody > tr > td.edit-todo {
+  color: #ef8c06 !important;
+}
+.to-do-list .table > tbody > tr > td.edit-todo:hover {
+  cursor: pointer;
+}
+.divSignature > h5:hover {
+  cursor: pointer;
+}
+.mb-50 {
+  margin-bottom: 50px;
+}
+.ml-10 {
+  margin-left: 10px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+
+.signature:hover,
+.other-signature:hover {
+  cursor: pointer;
+}
+/* .divSignature i{
+    padding: 0;
+    margin: 0;
+    float: right;
+  } */
+.to-do-row {
+  width: 100%;
+  overflow-x: unset;
+  display: flex;
+}
+.to-do-row .box .panel {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.sidebar-panel .panel-default {
+  border: none;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.p-0 {
+  padding: 0;
+}
+.pr-0 {
+  padding-right: 0;
+}
+.pl-0 {
+  padding-left: 0 !important;
+}
+.tdSignature .divSignature {
+  display: flex;
+}
+.tdSignature .divSignature i {
+  font-size: 18px;
+}
+.sidebar-panel .panel-default .panel-heading span {
+  font-size: 19px;
+  margin-top: 30px;
+  display: inline-block;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.sidebar-panel .panel-heading {
+  background: #f0f3f4;
+}
+.sidebar-panel .btn-info,
+.sidebar-panel .btn-primary,
+.btn-wrapper .btn-default {
+  background: #12375c;
+  border: 1px solid #12375c;
+  border-radius: 3px;
+  height: 30px;
+  line-height: 16px;
+  text-transform: capitalize;
+  color: #fff !important;
+}
+.sidebar-panel .btn-primary {
+  background: #4b7681;
+  border-color: #4b7681;
+}
+.p-b-5 {
+  padding-bottom: 5px !important;
+}
+.sidebar-panel .sidebar-box {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 15px;
+  border-radius: 10px;
+}
+.sidebar-panel .sidebar-box .row {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: row;
+}
+/* .sidebar-panel .sidebar-box .inner-box h5{
+    margin: 0;
+  }
+  .sidebar-panel .sidebar-box .inner-box tr h5{
+    margin: 10px 0 3px;
+  } */
+.sidebar-panel .sidebar-box .inner-box tr h5 {
+  margin: 10px 0 10px;
+}
+i.completed-sign {
+  background: #51d851;
+  color: #fff;
+  padding: 10px;
+}
+i.done-sign {
+  color: #13a914;
+  padding: 10px;
+}
+i.pending-sign {
+  color: #e1e1e1;
+  padding: 10px;
+}
+i.not-applicable-sign {
+  padding: 10px;
+  color: #e96c43;
+}
+.sidebar-panel .sidebar-box .inner-box h5.completed-sign {
+  background: #51d851;
+  color: #fff;
+  padding: 10px;
+}
+.sidebar-panel .sidebar-box .inner-box h5.done-sign {
+  background: #19bc1a;
+  color: #fff;
+  padding: 10px;
+}
+.sidebar-panel .sidebar-box .inner-box h5.pending-sign {
+  background: #e1e1e1;
+  padding: 10px;
+  color: #000;
+}
+.sidebar-panel .sidebar-box .inner-box h5.not-applicable-sign {
+  padding: 10px;
+  background: #e96c43;
+  color: #fff;
+}
+.sidebar-panel .sidebar-box .inner-box table {
+  height: 100%;
+  width: 100%;
+  padding: 10px 0;
+}
+.sidebar-panel .sidebar-box .inner-box {
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  height: 100%;
+  padding: 5px;
+  border-radius: 5px;
+}
+.btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+.active-panel {
+  border-bottom: 2px solid #b7bfc5;
+}
+.signature-canvas {
+  border: 1px solid rgb(100, 96, 96);
+  border-radius: 5px;
+  height: 100px;
+  width: 100%;
+}
+.not-allowed {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.p-15 {
+  padding: 15px 15px 15px 15px;
+}
+.w-100 {
+  width: 100%;
+}
+
+.canvas-parent-div {
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.canvas-parent-div::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 991px) and (min-width: 767px) {
+  .sidebar-box .pr-0 {
+    padding-right: 15px !important;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 1399px) {
+  .to-do-list .badge-text {
+    font-size: 14px;
+  }
+  .to-do-list .badge {
+    font-size: 14px;
+    padding: 5px;
+  }
+  .to-do-row .box .panel {
+    padding: 5px;
+  }
+  .to-do-list .box {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .to-do-row {
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .to-do-list .box {
+    min-width: 150px;
+  }
+  .to-do-row::-webkit-scrollbar {
+    display: none;
+  }
+}
+@media (max-width: 1399px) and (min-width: 1200px) {
+  .tdSignature .divSignature i {
+    padding: 5px !important;
+  }
+}
+@media (max-width: 991px) and (min-width: 767px) {
+  .btn-third {
+    padding-top: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-panel {
+    padding: 0;
+  }
+  .sidebar-panel .sidebar-box {
+    padding: 5px;
+  }
+}

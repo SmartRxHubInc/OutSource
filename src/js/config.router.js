@@ -61,14 +61,15 @@ angular
                         .state("app.to-do-list", {
                             url: "/to-do-list",
                             templateUrl: "tpl/to_do_list/to_do_list.html",
+                           
                             resolve: {
                                 deps: [
                                     "$ocLazyLoad",
                                     function ($ocLazyLoad) {
-                                        
-                                        //return $ocLazyLoad.load("ngGrid").then(function () {
-                                            return $ocLazyLoad.load(["js/controllers/to_do_list.js","js/controllers/bootstrap.js"]);
-                                       // });
+                                       
+                                      return $ocLazyLoad.load(["js/controllers/to_do_list.js","js/controllers/bootstrap.js","css/app-to-do.css"])
+                                            
+                                       
                                     },
                                 ],
                             },

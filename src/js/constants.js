@@ -249,7 +249,8 @@ app.constant("APP_ACTION", {
   GET_INSTRUCTION_BY_PAPER_TYPE_VERSION: "getInstructionByPaperTypeVersion",
   UPDATE_INSTRUCTION: "updateInstruction",
   GET_TODO_LIST:"getTodoList",
-  GET_TODO_ORDER_DETAIL:"getTodoOrderDetail"
+  GET_TODO_ORDER_DETAIL:"getTodoOrderDetail",
+  VERIFY_TO_DO_ORDER:"verifiedTodoOrder"
 });
 /*
  * Application Messages
@@ -292,4 +293,29 @@ app.constant("ToDoSteps", {
   step6: "Mar/Tar",
   step7: "Lab Order",
 });
-
+app.constant("SIGNATURE_TYPE",{
+  TYPE_MINUS_1:"-1",
+  TYPE_0:"0",
+  TYPE_1:"1",
+  TYPE_2:"2",
+  TYPE_3:"3",
+  TYPE_4:"4"
+})
+app.constant("EPAPER_MENU_CODE",{
+  DOCTOR_SIG_MISSING:"DOCTOR_SIG_MISSING",
+  NURSE_1:"NURSE_1",
+  NURSE_2:"NURSE_2",
+  CARE_PLAN:"CARE_PLAN",
+  CONSENT:"CONSENT",
+  MAR_TAR:"MAR_TAR",
+  LAB:"LAB"
+})
+app.constant("EPAPER_MENU_KEY",{
+  SIGNATURE:"signature",
+  NURSE_1:"nurse_1",
+  NURSE_2:"nurse_2",
+  CARE_PLAN:"care_plan",
+  CONSENT:"consent",
+  MAR_TAR:"mar_tar",
+  LAB:"lab"
+})

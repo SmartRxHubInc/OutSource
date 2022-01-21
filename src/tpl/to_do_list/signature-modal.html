@@ -1,15 +1,26 @@
 
+ 
   <div class="modal-body" id="modal-body">
+    <a class="btn btn-danger btn-sm pull-right" ng-click="cancel()"><i class="fa fa-close"></i></a>
     <h4 class="text-center">{{title}}</h4>
-    <div ng-if="!isOtherSignature">
-      <canvas class="signature-canvas" id="canvas" drawing ></canvas>
+    <div ng-if="!isOtherSignature" class="p-15 text-center">
+      <canvas  height=400 style="border:1px solid #000; border-radius:5px;  
+      overflow: hidden" id="signature-pad" class="signature-pad" drawing ></canvas>
+    
     </div>
-    <div ng-if="isOtherSignature">
-      <canvas class="signature-canvas" id="canvas" drawing ></canvas>
+    <div ng-if="isOtherSignature" class="row">
+      <div class="col-md-12 col-xs-12 text-center">
+        <textarea class="w-100" placeholder="{{placeholder}}" ng-model="$parent.reason" rows="5"></textarea>
+      </div>
     </div>
     
   </div>
   <div class="modal-footer">
-    <button ng-if="!isOtherSignature" class="btn btn-primary" type="button" ng-click="ok()">SIGN</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    <button ng-if="!isOtherSignature" class="btn btn-primary" type="button" ng-click="ok(0)">SIGN</button>
+    <button ng-if="!isOtherSignature" class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+    <button ng-if="isOtherSignature" class="btn btn-danger" type="button" ng-click="ok(2,reason)">NOT APPLICABLE</button>
+    <button ng-if="isOtherSignature" class="btn btn-primary" type="button" ng-click="ok(1,reason)">COMPLETE</button>
+    
+    
+    
   </div>
